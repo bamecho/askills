@@ -218,20 +218,23 @@ Pass when:
 - When the same request runs through Bam Design, the existing Design playbook
   still selects private expiring links as the current delivery slice.
 
-## E014. Codebase design keeps Definition and Audit separate
+## E014. Codebase design grounds, designs twice, and stops at the document
 
 Prompts: "Define the interfaces for the approved current slice" and "Audit the
 repository architecture for coupling and over-abstraction."
 
 Pass when:
 
-- Definition Mode returns exact repository-native declarations with no function
-  bodies and at most 2-3 Tech Note lines per non-obvious contract.
-- Audit Mode scans the requested repository scope, cites paths/symbols, ranks
-  material findings, and shows a smaller target contract or deletion.
+- The first prompt grounds in the real current system, spawns exactly two
+  candidates on different structural constraints, and synthesizes one design
+  document.
+- The design document returns exact repository-native declarations with no
+  function bodies and at most 2-3 Tech Note lines per non-obvious contract.
 - Every relationship, dependency, sequence, or state diagram uses ASCII.
-- Audit is never inserted as a mandatory pre-implementation stage.
-- Neither mode writes an execution or migration plan.
+- The second prompt does not route to `codebase-design`; repository-wide
+  architecture review is outside its scope.
+- The run stops at the design document. It writes no execution or migration plan
+  and no implementation code.
 
 ## E015. Plan slices map to an outcome ticket tree
 

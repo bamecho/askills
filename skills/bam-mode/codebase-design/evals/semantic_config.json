@@ -1,0 +1,156 @@
+{
+  "fallback_positive_concepts": [
+    "design_shape",
+    "ownership_decision",
+    "seam_placement",
+    "contracts_before_code"
+  ],
+  "positive_concepts": {
+    "design_shape": {
+      "weight": 0.3,
+      "phrases": [
+        "design the codebase shape",
+        "design the module structure",
+        "design the structure",
+        "codebase design",
+        "module boundaries",
+        "module map",
+        "dependency direction",
+        "architecture for this change",
+        "shape of this change",
+        "设计代码结构",
+        "模块结构",
+        "依赖方向"
+      ]
+    },
+    "ownership_decision": {
+      "weight": 0.3,
+      "phrases": [
+        "which module owns",
+        "who owns this state",
+        "state ownership",
+        "ownership of the effect",
+        "owns the decision",
+        "moves state ownership",
+        "both write",
+        "responsibility boundary",
+        "谁拥有",
+        "归属",
+        "职责边界"
+      ]
+    },
+    "seam_placement": {
+      "weight": 0.28,
+      "phrases": [
+        "where should the seam go",
+        "seam placement",
+        "put the seam",
+        "what interface should hide",
+        "public interface",
+        "port and adapter",
+        "adapter boundary",
+        "接口边界",
+        "抽象边界"
+      ]
+    },
+    "contracts_before_code": {
+      "weight": 0.28,
+      "phrases": [
+        "before we implement",
+        "before any code",
+        "define the interfaces",
+        "load-bearing contracts",
+        "show me the contracts",
+        "what contracts change",
+        "approved current slice",
+        "design first",
+        "写代码前",
+        "先设计",
+        "契约"
+      ]
+    }
+  },
+  "negative_concepts": {
+    "repo_wide_audit": {
+      "weight": 0.34,
+      "exclusive": true,
+      "phrases": [
+        "audit the repository",
+        "audit the codebase",
+        "scan the whole codebase",
+        "review the architecture of this repository",
+        "rank what to fix",
+        "tell me what to simplify",
+        "over-abstraction",
+        "审计整个仓库",
+        "全仓扫描"
+      ]
+    },
+    "implement_request": {
+      "weight": 0.32,
+      "exclusive": true,
+      "phrases": [
+        "implement the approved design",
+        "get the tests passing",
+        "build it end to end",
+        "then build it",
+        "write the code",
+        "fill in the bodies",
+        "实现这个设计",
+        "把它写出来"
+      ]
+    },
+    "plan_or_tickets": {
+      "weight": 0.3,
+      "exclusive": true,
+      "phrases": [
+        "merge-ready slices",
+        "verification steps",
+        "rollout order",
+        "migration steps",
+        "open tickets",
+        "ticket tree",
+        "执行顺序",
+        "开工单"
+      ]
+    },
+    "explain_or_investigate": {
+      "weight": 0.3,
+      "exclusive": true,
+      "phrases": [
+        "how does",
+        "walk me through",
+        "why did we",
+        "why do we",
+        "explain how",
+        "怎么工作的",
+        "为什么当初"
+      ]
+    },
+    "entity_modeling": {
+      "weight": 0.28,
+      "exclusive": true,
+      "phrases": [
+        "model the entities",
+        "entities and fields",
+        "schema fields",
+        "data model",
+        "实体建模",
+        "字段设计"
+      ]
+    },
+    "local_edit": {
+      "weight": 0.3,
+      "exclusive": true,
+      "phrases": [
+        "fix the null pointer",
+        "fix the bug",
+        "rename",
+        "across the repo",
+        "typo",
+        "改个名字",
+        "修个 bug"
+      ]
+    }
+  }
+}

@@ -1,160 +1,59 @@
 ---
 name: codebase-design
 description: >
-  Design or audit codebase shape through caller scenarios, responsibility and
-  state ownership, dependency direction, and exact load-bearing contracts. Use
-  Definition mode before implementation when ownership or interfaces change;
-  use Audit mode to review a repository for over-abstraction, coupling, leaky
-  boundaries, or stale design. Skip Definition when one owner and interaction
-  are already obvious.
+  Design codebase shape before implementation: ground the change in the real current system, explore two structurally distinct shapes in parallel, then present one design document covering module ownership, dependency direction, seam placement, and exact load-bearing contracts. Use when ownership, public interfaces, seams, or caller knowledge change. Skip when one owner and one interaction are already obvious. Not for implementation, rollout ordering, or repository-wide architecture review.
 ---
 
 # Codebase Design
 
-Use traced caller scenarios and code-shaped contracts as the architecture spec.
-Establish the whole system shape before local declarations: who calls, which
-module owns each decision, state, and effect, and how critical interactions cross
-the boundaries. Then define only the load-bearing contracts implementation must
-not silently redesign. Function bodies and rollout steps remain outside this
-skill. Optimize the artifact for a one-minute architecture review; evidence earns
-space, ceremony does not.
+Design the shape, then hand it over. This skill produces one design document and stops; it does not write implementation code.
 
-Select one mode from the request:
+Establish the whole system shape before local declarations: who calls, which module owns each decision, state, and effect, and how critical interactions cross the seams. Then define only the load-bearing contracts implementation must not silently redesign.
 
-- **Definition Mode** is the default for an approved current slice.
-- **Audit Mode** applies when the user asks to review, simplify, or improve the
-  current repository architecture.
+Three things make this work, and skipping any one collapses it into a guess: the design is grounded in the *real* current system, it is designed twice in parallel before anything is chosen, and it stops for approval before code exists.
 
-## Shared Grounding
+Read [`references/design-vocabulary.md`](references/design-vocabulary.md) first. Its terms — module, interface, depth, seam, adapter, leverage, locality — are how the two candidates stay comparable.
 
-Read the approved spec/Handoff, approved entity diff when present, and the real
-exports, callers, tests, and dependency boundaries in scope. Preserve public
-contracts unless Handoff explicitly changes them. Use the repository's language
-and declaration idioms; do not default to TypeScript. Draw any module,
-dependency, sequence, or state view as compact ASCII in a fenced `text` block.
-Trace current behavior across the boundaries changed by the slice; a package or
-file inventory is not a runtime model.
+Open a todolist with one entry per phase. The middle phases run subagents, and the list is what keeps a phase from silently disappearing.
 
-## Definition Mode
+## Phase A: Ground
 
-Read [`references/shape-review.md`](references/shape-review.md) in full before
-drafting every Definition Mode design. Use it as a private review lens and
-revise material boundary problems before presenting the design; report the
-resulting decisions, not rubric compliance.
+Build a real model of every system the change touches. Naming a file is not grounding.
 
-### Contract
+Delegate grounding to one general-purpose subagent — not the harness's built-in explore or readonly agent — and keep the orchestrator's context for Phase C, where it must read both candidates end to end. Pass [`references/grounding-prompt.md`](references/grounding-prompt.md) as its prompt; that file carries the agent type and why, the `how` and `why` sequencing, and the citation discipline.
 
-- **Outcome:** the smallest coherent system shape that lets callers complete the
-  approved scenarios while hiding coordination and policy behind deep boundaries.
-- **Done when:** critical caller paths, ownership of policy, state, and effects,
-  allowed dependencies, load-bearing types, failure behavior, and recovery are
-  visible without function bodies.
-- **Output:** a compact caller/interaction model followed by declaration-only
-  load-bearing contracts with adjacent 2-3 line Tech Notes.
+It writes `/tmp/codebase-design-<slug>/grounding.md` per [`references/grounding-brief.md`](references/grounding-brief.md) and returns a summary. Read the file, not the summary — the file is what both candidates receive. Move every uncited claim under **Unknown** first: you did not do the reading, so a guess looks identical to a traced fact, and both candidates will build on it.
 
-### Workflow
+Skip Phase A for greenfield work with no surrounding system. When the change touches one subsystem already traced in this conversation, pass the returned summary inline; a three-line grounding does not earn a file.
 
-1. Trace the fewest current and target caller scenarios that exercise materially
-   different paths. Name the observable result, durable state, and failure
-   recovery that changes the architecture; derive the shape from this usage.
-2. Identify the decisions implementation would otherwise make silently:
-   ownership of policy, state, and effects; dependency direction; public surface;
-   and caller knowledge. A deep contract hides representation and coordination
-   while naming the domain capability; it does not make an adapter infer a domain
-   transition or invent policy. When one atomic write includes a domain effect
-   consumed later, such as an event, outbox item, or notification, the domain
-   owner constructs an explicit intent including its stable identity and semantic
-   fields. Infrastructure only translates and persists it; a semantic method name
-   alone does not authorize the adapter to derive the effect. When callers share
-   a decision but perform different effects, expose the shared decision as domain
-   data and keep each effect at its caller boundary; mode flags, options, or
-   callbacks must not make one capability own unrelated interactions.
-   When one path previews or inspects the exact decisions another path executes,
-   expose that plan as data: the preview caller owns presentation and the executor
-   owns effects. Use a single multi-mode capability only when the Handoff locks it
-   as the public contract.
-3. Draw the fewest logical modules that hide coherent domain knowledge, their
-   allowed dependencies, and the critical interactions between them. Prefer one
-   view annotated with the load-bearing data, state, effects, and recovery paths.
-   A module is a responsibility boundary, not necessarily a file, layer, entity,
-   or execution stage.
-4. When locked constraints and repository precedent leave a consequential
-   ownership or dependency choice genuinely open, compare structurally distinct
-   viable shapes in reasoning. Stale proposals and a human-corrected shape are
-   evidence, not alternatives.
-5. Write exact, repository-native declarations only for new or changed
-   load-bearing boundaries: contracts whose change would alter dependency
-   direction, caller knowledge, state ownership, or failure semantics. Cite
-   preserved contracts by symbol and compatibility requirement. Contract blocks
-   stop at type/interface declarations and function or method signatures;
-   executable bodies and internal helpers stay in the source and implementation.
-   Use language-native declaration syntax when it supports bodyless declarations;
-   otherwise put conventional signatures in a `text` fence. Placeholder bodies
-   are implementation-shaped rather than contracts.
-6. Place a **Tech Note** beside a contract only for evidence-backed semantics
-   needed to approve state, effects, transactions, concurrency, external calls,
-   or failures. Leave unrelated implementation policy open. Trace each caller to
-   one public capability and name what it no longer needs to coordinate or know.
-   Architecture blockers are unresolved decisions that prevent approval, not
-   adapter requirements. Do not invent concurrency, locking, isolation, batching,
-   or retry policy absent approved evidence. Reconcile every interaction label
-   with the preserved and proposed declarations; a flow cannot return, accept, or
-   observe a value its contract does not provide. Present and stop for approval.
+## Phase B: Design twice
 
-When one owner, dependency direction, and interaction are already obvious,
-write `codebase-design skipped: <reason>`.
+Run the **arena** skill with the structure-design task and the grounding brief path. Pass [`references/candidate-prompt.md`](references/candidate-prompt.md) as each candidate's prompt.
 
-### Output Contract
+Spawn exactly two candidates. Pass this to arena as a hard candidate count. Never more than two subagents at once. Do not pass a `model` argument. Arena's cross-judge is a separate readonly reviewer, not a third candidate.
 
-Lead with a compact caller/system view that shows the critical interactions,
-ownership, and allowed dependencies. Add a separate sequence or state view only
-when the first view cannot make a load-bearing failure or transition clear.
-Follow with exact repository-native declarations only at load-bearing boundaries
-and adjacent Tech Notes for semantics the declarations cannot express. End with
-caller knowledge removed and real architecture blockers; include a tradeoff only
-when human approval depends on it. Report concrete decisions rather than rubric
-compliance. State each fact once. Preserved contracts are cited by path and symbol,
-not reprinted in code blocks. The artifact contains no executable, placeholder,
-pseudocode, or copied function bodies. End at architecture blockers; plan owns
-implementation steps. Do not add an alternatives or red-flag compliance section
-unless the Handoff explicitly asks the human to choose among named viable shapes.
+Give each candidate a different structural constraint so the two explore genuinely different shapes rather than two flavors of one. The candidate prompt carries the default pair and the substitutions worth making when the grounding brief points at a different axis; name the axis before spawning.
 
-## Audit Mode
+Require two structurally distinct shapes before synthesis, even when the first looks sufficient. Whole-shape alternatives, not point fixes inside one shape.
 
-### Contract
+## Phase C: Synthesize
 
-- **Outcome:** a repository-wide or explicitly scoped diagnosis of boundaries
-  that create unnecessary review and change cost.
-- **Done when:** each material finding cites code evidence, explains the current
-  coupling, and shows the smaller target contract or deletion.
-- **Output:** ordered findings and a compact target boundary map. Plan owns any
-  later rollout sequence.
+Screen both candidates against [`references/shape-review.md`](references/shape-review.md) and revise or reject what it flags. Compare on interface depth: prefer the shape hiding more complexity behind a smaller public surface. Do not mistake a deep call chain for a deep module.
 
-### Workflow
+Pick the base on which shape a future maintainer can extend without breaking invariants, then graft what the other got right, by hand — the result must hold under one mental model. When both converge, note it and ship the consensus shape.
 
-1. Scan the full repository unless the user names a narrower scope. Map public
-   exports, dependency direction, shared mutable state, adapters, and callers.
-2. Find over-abstraction, pass-through layers, duplicated policy, leaky provider
-   types, cyclic ownership, oversized interfaces, dual writers, and legacy APIs
-   with no live caller.
-3. Rank only material findings by review/change cost and blast radius. Cite paths
-   and symbols, not impressions.
-4. For each finding, show the target as an exact contract diff: add, change,
-   split, merge, or delete. Add a 2-3 line Tech Note only for hidden state,
-   effects, failure, transaction, or concurrency semantics.
-5. End with the resulting module/dependency shape. Leave migration ordering and
-   tickets to plan.
+Screen the synthesized shape again; grafting can reintroduce a flag neither candidate had. Reconcile every interaction label in the module map against the declarations: a flow cannot return, accept, or observe a value its contract does not provide. Do not invent concurrency, locking, isolation, batching, or retry policy without approved evidence.
 
-### Output Contract
+## Phase D: Present
 
-For each material finding, give severity, path/symbol evidence, review or change
-cost, target action, and the exact smaller contract or deletion. Use Tech Notes
-only for semantics the contract cannot express. End with the target ASCII
-dependency shape. The audit is complete when every finding has live repository
-evidence and an approvable target surface.
+Write one design document per [`references/design-document.md`](references/design-document.md), in the user's language, and stop for approval. That document is the deliverable and the contract implementation is handed. Report concrete decisions, not rubric compliance.
+
+Then stop. Do not implement, order rollout steps, or open tickets. Human pushback on the shape is Phase A evidence: re-ground and re-run Phase B rather than patching the rejected shape.
+
+When one owner, dependency direction, and interaction are already obvious, write `codebase-design skipped: <reason>` instead of running the phases.
 
 ## Stage Boundary
 
-Consume approved data locks from the Handoff. Later planning may order the
-approved contracts but does not redesign them; implementation owns executable
-bodies and diff evidence.
+Consume approved data locks per the Handoff contract's consume rules; do not reopen product tokens or invent product fields. Planning may order the approved contracts but does not redesign them; implementation owns bodies and diff evidence.
+
+Routing cases for this boundary live in `evals/trigger_cases.json`.

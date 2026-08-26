@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "teach": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "skillPath": "pstack/skills/teach/SKILL.md",
+      "computedHash": "413210cf5a752fb2d4c73bca701ed16da723712251b74bdd8e39a5042f5cb6fb"
+    },
+    "wayfinder": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/wayfinder/SKILL.md",
+      "computedHash": "8f610a50e8e8044571d918088160a9657e23f1268080728bf92009db48f6c22f"
+    },
+    "write": {
+      "source": "tw93/waza",
+      "sourceType": "github",
+      "skillPath": "skills/write/SKILL.md",
+      "computedHash": "36fbd6a4f7e6a39b89f0b979ff84a38c68ee0244f3b8cdffc4d1125d1f96c40e"
+    },
+    "yao-meta-skill": {
+      "source": "yaojingang/yao-meta-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "01261a545256c70f442ed25478dce925ef6ecfadfeafb3b3f4cc2a254e32b2e5"
+    }
+  }
+}

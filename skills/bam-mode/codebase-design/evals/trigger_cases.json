@@ -1,0 +1,26 @@
+{
+  "recommended_threshold": 0.33,
+  "should_trigger": [
+    "Define the module ownership and interfaces for the approved current slice before we implement it",
+    "This change moves state ownership between two packages. Design the codebase shape first.",
+    "Where should the seam go for the new payment provider, and what interface should hide it?",
+    "We're adding an outbox event to the order write. Work out which module owns the intent and what contracts change.",
+    "Design the module structure for this feature and show me the contracts before any code",
+    "The importer and the worker both write approval state. Design the ownership and dependency direction."
+  ],
+  "should_not_trigger": [
+    "Audit the repository architecture for coupling and over-abstraction",
+    "Scan the whole codebase for shallow modules and pass-through layers and rank what to fix",
+    "Implement the approved design and get the tests passing",
+    "Order the approved contracts into merge-ready slices with verification steps",
+    "How does the rate limiter work?",
+    "Why did we pick exponential backoff here?",
+    "Fix the null pointer in the CLI arg parser",
+    "Rename getUserName to getUsername across the repo"
+  ],
+  "near_neighbor": [
+    "Design this and then build it end to end",
+    "Model the entities and fields for the approved billing decisions",
+    "Review the architecture of this repository and tell me what to simplify"
+  ]
+}
