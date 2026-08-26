@@ -75,9 +75,10 @@ request returns to Feature after this playbook produces a taskable handoff.
    public interfaces, seam placement, or caller knowledge. It consumes the
    approved entity model when present. Record
    `codebase-design skipped: <reason>` for an obvious one-owner change.
-   Definition Mode owns the exact repository-native type/interface declarations
-   and adjacent Tech Notes; do not add a second architecture document for them.
-   Use Audit Mode only when the requested endpoint is a repository design review.
+   It owns the exact repository-native type/interface declarations and adjacent
+   Tech Notes; do not add a second architecture document for them. It grounds,
+   designs the shape twice in parallel, and stops at an approved design document;
+   it does not implement.
    - When raw external input, validation, adapters, or error ownership cross the
      boundary, Use skill `principle-boundary-discipline` to place parsing and
      guards.
