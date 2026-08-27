@@ -39,7 +39,7 @@ These are **when Multica may be touched**, not a mandatory pipeline. Endpoint st
 
 | Design moment | ticket-tree action |
 |---------------|-------------------|
-| Goal / Handoff first draft approved | **seed-outcome** (`create` or adopt) |
+| Goal / decision-record first draft approved | **seed-outcome** (`create` or adopt) |
 | Spec or requested roadmap file written or path stable | **sync** outcome path + Sources; comment “spec landed” if useful |
 | entity-model-design approved **or** skipped | **sync** `entity_path` or omit; never a ticket for skip |
 | codebase-design approved **or** skipped | **sync** `design_path`; still no slice unless cuts are clear and user wants fanout |

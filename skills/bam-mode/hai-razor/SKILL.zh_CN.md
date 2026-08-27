@@ -78,7 +78,7 @@
 - 目标是需求文档或产品范围——用 `hai-prd`。
 - 目标是模块边界、依赖方向或抽象深度——用 `hai-architecture`。
 - 问题是整个想法到底值不值得做——用 `hai-idea`。
-- 用户想把删减结果变成执行计划——用 bam-mode plan reference。
+- 用户想把删减结果变成有边界、可验证的执行单元——用 `design-verifiable-slices`。
 
 ## 常见错误
 

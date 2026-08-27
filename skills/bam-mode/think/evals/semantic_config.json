@@ -1,0 +1,101 @@
+{
+  "optimizer_hints": {
+    "capability": "Reach one evidence-grounded product or technical decision and expose its assumptions",
+    "inputs": ["rough ideas", "feature requests", "architecture questions", "粗略想法", "方向问题"],
+    "trigger_actions": [
+      "decide a direction",
+      "judge scope",
+      "choose an architecture",
+      "assess feasibility",
+      "judge whether it is worth building",
+      "surface hidden assumptions",
+      "reduce a tangled ask to one decision",
+      "定方向",
+      "判断范围",
+      "选架构",
+      "值不值得做",
+      "找出隐含假设"
+    ],
+    "exclusions": ["routine bug fixes", "reviewing an already-built feature", "mechanical refactors", "translation", "summary"],
+    "artifacts": ["decision record"]
+  },
+  "fallback_positive_concepts": ["decide_direction", "judge_value", "surface_assumptions", "minimize_decision"],
+  "positive_concepts": {
+    "decide_direction": {
+      "weight": 0.34,
+      "phrases": [
+        "decide", "decision", "direction", "which approach", "should we build",
+        "architecture", "scope", "feasible", "feasibility", "plugin system or",
+        "before i plan", "before implementation", "定方向", "该怎么定", "决策", "架构", "范围"
+      ]
+    },
+    "judge_value": {
+      "weight": 0.22,
+      "phrases": [
+        "worth building", "worth it", "keep or kill", "value judgment", "judge",
+        "是否值得", "值不值得", "留还是删"
+      ]
+    },
+    "surface_assumptions": {
+      "weight": 0.24,
+      "phrases": [
+        "assumption", "assumptions", "assumes", "resting on", "unconfirmed",
+        "what is open", "hidden", "premise", "假设", "隐含", "未确认", "前提"
+      ]
+    },
+    "minimize_decision": {
+      "weight": 0.2,
+      "phrases": [
+        "load-bearing", "smallest", "minimal", "cut down", "one decision that matters",
+        "tangled", "decompose", "break down", "最小", "拆解", "关键决策", "一个决策"
+      ]
+    },
+    "requested_document": {
+      "weight": 0.14,
+      "phrases": [
+        "decision record", "write it to a file", "to a file", "export", "output path",
+        "决策记录", "输出到文件", "写到文件"
+      ]
+    }
+  },
+  "negative_concepts": {
+    "routine_bug": {
+      "weight": 0.26,
+      "exclusive": true,
+      "phrases": ["fix the bug", "fix the typo", "test is failing", "null pointer", "修个 bug", "改错别字"]
+    },
+    "post_hoc_review": {
+      "weight": 0.24,
+      "exclusive": true,
+      "phrases": ["already shipped", "already built", "we already", "last quarter", "review the feature we", "已经上线", "已经做完"]
+    },
+    "summarize_only": {
+      "weight": 0.22,
+      "exclusive": true,
+      "phrases": ["summarize", "summary of", "总结一下", "概括"]
+    },
+    "translate_only": {
+      "weight": 0.22,
+      "exclusive": true,
+      "phrases": ["translate", "to japanese", "翻译"]
+    },
+    "mechanical_refactor": {
+      "weight": 0.2,
+      "exclusive": true,
+      "phrases": ["rename", "across the repo", "find and replace", "重命名", "批量替换"]
+    },
+    "wayfinder_neighbor": {
+      "weight": 0.24,
+      "exclusive": true,
+      "phrases": [
+        "too big for one agent session", "too big for one session", "map of tickets",
+        "decision tickets", "on the tracker", "multi-quarter", "issue tracker"
+      ]
+    },
+    "explain_only": {
+      "weight": 0.2,
+      "exclusive": true,
+      "phrases": ["explain how", "how does", "walk me through", "解释", "怎么工作"]
+    }
+  }
+}

@@ -132,7 +132,7 @@ machine, service boundary, or architecture flow.
 - The target is a requirement document or product scope — use `hai-prd`.
 - The target is module boundaries, dependency direction, or abstraction depth — use `hai-architecture`.
 - The question is whether the whole idea is worth doing at all — use `hai-idea`.
-- The user wants the cuts turned into an execution plan — use the bam-mode plan reference.
+- The user wants the cuts turned into bounded, verifiable execution units — use `design-verifiable-slices`.
 
 ## Common Mistakes
 

@@ -46,7 +46,11 @@ Screen the synthesized shape again; grafting can reintroduce a flag neither cand
 
 ## Phase D: Present
 
-Write one design document per [`references/design-document.md`](references/design-document.md), in the user's language, and stop for approval. That document is the deliverable and the contract implementation is handed. Report concrete decisions, not rubric compliance.
+Write one design document per [`references/design-document.md`](references/design-document.md) to **`docs/design/NN-<slug>.md`**, in the user's language, and stop for approval. That document is the deliverable and the contract implementation is handed. Report concrete decisions, not rubric compliance.
+
+`NN` is the next unused two-digit number in `docs/design/`, so the directory listing reads in the order the designs were made — which is the order they constrain each other. Use the same `<slug>` as the Phase A working directory, so the transport and the deliverable are visibly one run.
+
+The two locations differ in durability, not convenience: `/tmp/codebase-design-<slug>/` holds the grounding brief and both candidate proposals, which exist only because subagents cannot share context and are disposable once Phase C has read them. `docs/design/NN-<slug>.md` is what implementation is handed and what a reader returns to months later, so it belongs in the repo and in review.
 
 Then stop. Do not implement, order rollout steps, or open tickets. Human pushback on the shape is Phase A evidence: re-ground and re-run Phase B rather than patching the rejected shape.
 
@@ -54,6 +58,6 @@ When one owner, dependency direction, and interaction are already obvious, write
 
 ## Stage Boundary
 
-Consume approved data locks per the Handoff contract's consume rules; do not reopen product tokens or invent product fields. Planning may order the approved contracts but does not redesign them; implementation owns bodies and diff evidence.
+Consume the locked decisions the grounding brief carries; do not reopen product tokens or invent product fields. Only a decision the user or upstream evidence has confirmed is locked — an assumed or open one stays under **Unknown**, and a design that needs it resolved names it as a blocker rather than picking a value. Planning may order the approved contracts but does not redesign them; implementation owns bodies and diff evidence.
 
 Routing cases for this boundary live in `evals/trigger_cases.json`.

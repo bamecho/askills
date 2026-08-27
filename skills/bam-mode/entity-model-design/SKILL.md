@@ -27,8 +27,9 @@ store/compute decision, write `entity-model-design skipped: <reason>`.
 
 ## Workflow
 
-1. Read the approved spec/Handoff and the current entities or schema touched by
-   the slice.
+1. Read the upstream confirmed decisions and the current entities or schema
+   touched by the slice. Model only what the user or evidence has confirmed; an
+   assumed or open product choice stays Open rather than becoming a field.
 2. List only entity changes: **add**, **modify**, or **remove**. Mention an
    unchanged entity only as relationship context in the graph.
 3. For every changed field, choose `store`, `compute`, `remove`, or `rely on`.
@@ -63,5 +64,7 @@ Routine IDs, timestamps, physical DB types, and indexes appear only when their
 meaning or migration contract changes. Unchanged entities may appear as graph
 context; attribute rows remain diff-focused.
 
-After approval, copy approved names, types, stances, cardinality, and invariants
-into Handoff Locked so `codebase-design` consumes rather than redesigns them.
+After approval, carry approved names, types, stances, cardinality, and invariants
+into the locked decisions the next stage reads, so `codebase-design` consumes
+rather than redesigns them. Anything left unapproved travels as Open, not as a
+settled name.

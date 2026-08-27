@@ -1,6 +1,6 @@
 # Design document
 
-The single deliverable. Optimize it for a one-minute architecture review by someone who will then hand it to an implementation agent: evidence earns space, ceremony does not. State each fact once.
+The single deliverable, written to `docs/design/NN-<slug>.md` — `NN` the next unused two-digit number in that directory, `<slug>` the same as the Phase A working directory. Optimize it for a one-minute architecture review by someone who will then hand it to an implementation agent: evidence earns space, ceremony does not. State each fact once.
 
 Cite preserved contracts by path and symbol instead of reprinting them. Contain no executable, placeholder, or pseudocode bodies.
 
@@ -87,7 +87,7 @@ none.>
 ## Rules
 
 - **Write the document in the user's language.** Chinese when the user works in Chinese. Prose, rationale, and section content are translated; headings, declarations, symbol names, paths, and the module map's labels stay as they are, because they are the artifact implementation is matched against.
-- **No alternatives section.** The synthesis record already says what lost and why. Add a named-alternatives section only when the Handoff explicitly asks the human to choose among viable shapes.
+- **No alternatives section.** The synthesis record already says what lost and why. Add a named-alternatives section only when the user has explicitly asked to choose among viable shapes.
 - **No rubric compliance.** Never write that the shape passed the shape review. Report the decision the review produced.
 - **End at blockers.** Plan owns implementation ordering and verification steps.
 - **A stale proposal or a human-corrected shape is evidence, not an alternative.** Do not list it as a candidate that lost.

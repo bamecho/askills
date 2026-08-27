@@ -67,7 +67,7 @@ flowchart LR
 - **Guardrails**: <tests, acceptance criteria, naming, docs, architecture boundary, or follow-up proof tasks>
 
 ## Next Steps
-<If executable, list the cut list; if evidence is thin, list the prove-first items; if it needs landing, route to the bam-mode plan reference.>
+<If executable, list the cut list; if evidence is thin, list the prove-first items; if it needs landing, route to `design-verifiable-slices`.>
 
 ## HTML Artifact
 - **Path**: `/tmp/hai-razor-<slug>/index.html`

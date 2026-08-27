@@ -50,7 +50,7 @@ document, or plan microstep is not a slice by itself.
 
 | Rank | Artifact | Feeds |
 |------|----------|--------|
-| 1 | Goal / Building + Handoff Locked / non-goals | Outcome title and Goal (enough to **seed**) |
+| 1 | Goal / Building + confirmed locked decisions / non-goals | Outcome title and Goal (enough to **seed**) |
 | 2 | Spec or roadmap path from `think` (as it appears) | Outcome Sources and current delivery-slice identity; still not a separate ticket |
 | 3 | Entity model (if present) | Constraints; seed metadata only until fanout |
 | 4 | Codebase design (if present) | Slice cuts at fanout |
@@ -233,7 +233,7 @@ Use `references/draft-template.md`. Include phase, mode, node table, risks, comm
 ## Sources
 - Spec: `<path or —>`
 - Roadmap: `<path or —>`
-- Handoff: `<path or —>`
+- Decision record: `<path or —>`
 - Entity: `<path or —>`
 - Design: `<path or —>`
 - Plan: `<path or —>`
@@ -274,7 +274,7 @@ Refresh **Sources**, **Design status**, and **Children** on seed sync and after 
 ## Sources
 - Spec: `<path>` <optional #anchor>
 - Roadmap: `<path>` <optional #anchor>
-- Handoff: `<path>` (if any)
+- Decision record: `<path>` (if any)
 - Entity: `<path>` (if any)
 - Design: `<path>` (if any)
 - Plan: `<path>` <optional #anchor>

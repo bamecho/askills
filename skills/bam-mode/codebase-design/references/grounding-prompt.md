@@ -1,6 +1,6 @@
 # Grounding prompt
 
-The orchestrator passes this file to the single Phase A grounding subagent and fills in the variable inputs around it: the change under design, the Handoff contract's Locked section and approved entity diff when present, the subsystems in scope, and the output path.
+The orchestrator passes this file to the single Phase A grounding subagent and fills in the variable inputs around it: the change under design, the upstream locked decisions and approved entity diff when present, the subsystems in scope, and the output path.
 
 Spawn it with `subagent_type: generalPurpose` and no `model` argument. Do not use the harness's built-in explore or readonly agent: this prompt tells the agent to invoke the `how` and `why` skills, which spawn subagents of their own, and an agent without the skill and subagent tools produces a file inventory instead of a traced model.
 
@@ -20,7 +20,7 @@ Your output is the brief described in [`grounding-brief.md`](grounding-brief.md)
 
 ## Constraints
 
-Carry the Handoff's Locked decisions into the brief verbatim — field names, flags, error codes, store/compute/remove choices, non-goals. They are constraints on both candidates, and restating them in your own words is how one gets reopened.
+Carry the upstream locked decisions into the brief verbatim — field names, flags, error codes, store/compute/remove choices, non-goals. They are constraints on both candidates, and restating them in your own words is how one gets reopened. An upstream item the user has not confirmed is not a locked decision; it belongs under **Unknown**, and promoting it to Locked is how an assumption reaches a module boundary.
 
 Every claim carries a `path:line` or a commit/PR reference, or it moves under **Unknown** with what it would change if resolved the other way. An uncited claim stated confidently is worse than an acknowledged gap: a candidate can design against a gap, but it cannot see through a wrong fact.
 

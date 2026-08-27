@@ -9,11 +9,14 @@ Target ≤2 pages. Facts with citations, not narrative. Every claim carries a `p
 
 ## The change
 <Two or three sentences. What the slice must make possible, stated as an
-observable outcome. Copied from the approved spec or Handoff, not re-derived.>
+observable outcome. Copied from the upstream confirmed decisions, not
+re-derived.>
 
 ## Locked decisions
-<From the Handoff contract's Locked section. Field names, flags, error codes,
-store/compute/remove choices, non-goals. Candidates may not reopen these.>
+<The decisions the user or upstream evidence has already confirmed. Field names,
+flags, error codes, store/compute/remove choices, non-goals. Candidates may not
+reopen these. An upstream item still marked assumed or open is not locked: put
+it under **Unknown** instead, never here.>
 
 ## Current shape (from `how`)
 <The traced runtime model of the subsystems the slice touches. Which module owns
@@ -22,7 +25,7 @@ which decision, state, and effect today. Where the data enters and leaves. Cite
 
 ## Existing contracts that must survive
 <Public exports with live callers, by path and symbol, with the compatibility
-requirement for each. Preserve unless the Handoff explicitly changes it.>
+requirement for each. Preserve unless a locked decision explicitly changes it.>
 
 ## Dependencies the slice crosses
 <One line per dependency with its category from

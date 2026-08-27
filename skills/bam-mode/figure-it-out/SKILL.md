@@ -12,8 +12,7 @@ Don't reinvent a playbook you already have. A focused single-unit task that matc
 
 ## Start
 
-Open a todolist whose first item is Use skill `bam-mode` (owning-playbook
-routing). Then add the phases below as todos.
+Open a todolist and add the phases below as todos.
 
 ## Phase A: Frame
 

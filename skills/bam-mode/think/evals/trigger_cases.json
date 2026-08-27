@@ -1,0 +1,38 @@
+{
+  "recommended_threshold": 0.30,
+  "negative_patterns": [
+    "already built",
+    "routine bug",
+    "fix the typo",
+    "several independent decisions",
+    "too big for one session"
+  ],
+  "should_trigger": [
+    { "text": "Should we build this as a plugin system or hardcode the three integrations?", "family": "architecture_choice" },
+    { "text": "Help me decide the direction for quiet hours before I plan the work.", "family": "direction_planning" },
+    { "text": "Is this feature worth building at all?", "family": "value_judgment" },
+    { "text": "Decide the scope for local-first collaboration in this repo.", "family": "scope_judgment" },
+    { "text": "Is it feasible to move auth to the edge runtime?", "family": "feasibility" },
+    { "text": "Keep or kill the unused export preset?", "family": "value_judgment" },
+    { "text": "What assumptions is this delete-user design resting on?", "family": "assumption_surfacing" },
+    { "text": "Cut this tangled request down to the one decision that matters.", "family": "decomposition" },
+    { "text": "Write the decision record for the caching approach to a file.", "family": "requested_document" },
+    { "text": "帮我判断这个方向该怎么定，先别写代码。", "family": "direction_planning" },
+    { "text": "这个需求里有哪些是你自己假设的？", "family": "assumption_surfacing" },
+    { "text": "把决策记录输出到文件。", "family": "requested_document" }
+  ],
+  "should_not_trigger": [
+    { "text": "Fix the typo in the README.", "family": "routine_edit" },
+    { "text": "This test is failing with a null pointer, fix the bug.", "family": "routine_bug" },
+    { "text": "Review the feature we already shipped last quarter.", "family": "post_hoc_review" },
+    { "text": "Summarize this meeting note.", "family": "summary_only" },
+    { "text": "Translate this doc to Japanese.", "family": "translation" },
+    { "text": "Rename getUserName to getUsername across the repo.", "family": "mechanical_refactor" },
+    { "text": "Plan a migration too big for one agent session as a map of tickets.", "family": "wayfinder_neighbor" }
+  ],
+  "near_neighbor": [
+    { "text": "Chart the whole multi-quarter effort as decision tickets on the tracker.", "family": "wayfinder_neighbor" },
+    { "text": "Turn this approved spec into independently verifiable slices.", "family": "slices_neighbor" },
+    { "text": "Explain how the current auth middleware works.", "family": "how_neighbor" }
+  ]
+}
