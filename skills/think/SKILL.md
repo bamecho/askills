@@ -6,7 +6,9 @@ description: >
 
 # Think: Evidence-Grounded Decision
 
-Turn rough idea → grounded recommendation + visible assumptions. **Expect discussion**, not one-shot answer.
+Turn rough idea → grounded recommendation + visible assumptions. 
+
+**Multi-turn process**: Apply method throughout discussion. Each response should re-ground in evidence, re-check assumptions, and continue applying first principles—not just the initial answer.
 
 ## Method
 
@@ -48,7 +50,7 @@ Mention alternative only if tradeoff genuinely close.
 **Mark explicitly**, never bury:
 - **Confirmed**: user stated outcome/constraints (fixed)
 - **Assumed**: choice made to proceed, user never confirmed (mark as `[assumed]`)
-- **Open**: answer would change direction, still unknown (+ impact + owner)
+- **Open**: answer would change direction, still unknown (+ impact)
 - **Unexamined**: dimension user hasn't raised (name class, don't answer)
 
 **Assumption hygiene**: assumed/unexamined is where decisions rot. Implementation proves consistency, never correctness. Surface while still one sentence to change.
@@ -69,27 +71,31 @@ Output recommendation with assumptions stated.
 - Use `batch-grill-me` or similar to probe further
 - Request file output after discussion converges
 
-Output format (chat only at this stage):
-- Simple decision: 2-4 lines
-  ```
-  **Decision**: <what + why>
-  **Key assumption**: <question about load-bearing assumption>
-  **Other assumptions**: <list with [assumed] markers>
-  ```
-- Complex decision: structured bullets
-  ```
-  **Decision**: <what + why>
-  **Rationale**: <evidence cited>
-  **Boundary**: <in/out>
-  **Risk**: <failure mode>
-  
-  **Key assumption**: <question>
-  **Assumptions**: <list with [assumed] markers>
-  **Open**: <list with impact + owner>
-  **Unexamined**: <classes of questions>
-  ```
+## Output Format
 
-Do not write file at this stage. Wait for user feedback.
+Single unified format (scale complexity as needed):
+
+```
+**Decision**: <what + why>
+[**Rationale**: <evidence cited> — include when non-trivial]
+[**Boundary**: <in/out> — include when scope ambiguous]
+[**Risk**: <failure mode> — include when non-obvious]
+
+**Key assumption**: <question about load-bearing assumption>
+[**Assumptions**: <list with [assumed] markers> — if multiple]
+[**Open**: <list with impact> — if blocking unknowns exist]
+[**Unexamined**: <classes of questions> — if relevant dimensions not addressed]
+
+---
+**Need deeper discussion?** Would you like me to continue applying this skill's method to refine the decision? 
+(I'll re-apply: [list 1-2 most relevant method steps from above])
+```
+
+**[...] means optional** - include sections only when they add value. Simple decisions may only need Decision + Key assumption + Need deeper discussion.
+
+**Critical**: Always end with the "Need deeper discussion?" question to form a loop - asking this forces you to recall and re-apply the skill's method in next turn.
+
+Do not write file unless explicitly requested. This is a discussion format.
 
 ## Discipline
 
@@ -107,32 +113,14 @@ Do not write file at this stage. Wait for user feedback.
 - Blocking ambiguity: stays Open (don't fake closure)
 - No unlabelled assumption reaches recommendation
 
-## Output
+## File Output (Optional)
 
-Return recommendation itself. Omit workflow narration.
+**Only when user explicitly requests**: "输出到文件" / "write decision record" / provides path.
 
-**Decision record** (only when user explicitly asks: "输出到文件" / "write decision record" / provides path):
+Write to `docs/decisions/NN-<slug>.md` (NN = next unused number) using structure:
+1. Decision + Observable outcome
+2. Rationale (cited evidence)
+3. Boundary, Assumptions, Open questions, Risk
+4. Alternatives considered (if relevant)
 
-Write to `docs/decisions/NN-<slug>.md`. `NN` = next unused number.
-
-Structure:
-1. **Decision**: what + why (2-3 lines)
-2. **Observable outcome**: how to verify it worked
-3. **Rationale**: what decided it (cited evidence)
-4. **Boundary**: scope (what's in/out)
-5. **Assumptions**: choices made to proceed (each marked `[assumed]`)
-6. **Open questions**: still unknown (each with: impact + default if exists + owner)
-7. **Unexamined**: dimension classes user hasn't raised
-8. **Risk**: most likely failure mode
-9. **Alternatives considered**: rejected options + why (if relevant)
-
-No invented details. Point at facts, don't restate.
-
-**Verify before completion**:
-□ Every assumption explicitly marked `[assumed]`
-□ Every open question has impact + owner
-□ Rationale cites real evidence (`path:line` or source)
-□ No fake closure (blocking ambiguity stays Open)
-□ Observable outcome is measurable (not just "success")
-
-**Note**: Most users proceed directly to implementation after discussion. Only write file when explicitly requested.
+Verify: every assumption marked `[assumed]`, every open question has impact, rationale cites real evidence, no fake closure.
