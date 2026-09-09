@@ -1,8 +1,8 @@
 {
-  "name": "bam-mode",
-  "displayName": "Bam Mode",
-  "version": "0.1.0",
-  "description": "Bam's self-contained engineering mode. Packages a self-contained engineering workflow with playbooks, principles, review gates, and Chinese writing support.",
+  "name": "myelin",
+  "displayName": "Myelin Skills",
+  "version": "0.2.0",
+  "description": "Agent effectiveness skills collection: method routing (8 principles), grilling, assumption-gated thinking, codebase design, domain modeling, and verification workflows.",
   "author": {
     "name": "Bam"
   },
@@ -10,22 +10,22 @@
   "repository": "https://github.com/bamecho/Myelin",
   "license": "MIT",
   "keywords": [
-    "bam-mode",
-    "cursor-plugin",
-    "engineering",
-    "workflow",
-    "principles",
-    "review",
-    "planning"
+    "agent-effectiveness",
+    "method-routing",
+    "grilling",
+    "thinking",
+    "design",
+    "verification",
+    "workflow"
   ],
   "category": "productivity",
   "tags": [
     "productivity",
-    "engineering",
-    "workflow",
-    "principles"
+    "agent",
+    "methodology",
+    "workflow"
   ],
-  "skills": "./skills/bam-mode/",
+  "skills": "./skills/",
   "agents": "./agents/",
   "rules": "./rules/"
 }

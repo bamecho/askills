@@ -1,24 +1,24 @@
 {
-  "name": "bam-mode",
-  "version": "0.1.0",
-  "description": "Bam's self-contained engineering mode for Codex.",
+  "name": "myelin",
+  "version": "0.2.0",
+  "description": "Agent effectiveness skills: method routing, grilling, thinking, and design workflows.",
   "author": {
     "name": "Bam"
   },
-  "skills": "./skills/bam-mode/",
+  "skills": "./skills/",
   "interface": {
-    "displayName": "Bam Mode",
-    "shortDescription": "Run Bam's document-and-review engineering mode.",
-    "longDescription": "Bam Mode packages a self-contained engineering workflow with playbooks, principles, review gates, and Chinese writing support.",
+    "displayName": "Myelin Skills",
+    "shortDescription": "Agent method routing and engineering workflows.",
+    "longDescription": "Collection of skills for agent effectiveness: method router (8 principles), grilling, assumption-gated thinking, codebase design, domain modeling, and verification workflows.",
     "developerName": "Bam",
     "category": "Productivity",
     "capabilities": [
       "Skills"
     ],
     "defaultPrompt": [
-      "/bam-mode plan this change",
-      "Use bam-mode for this implementation",
-      "Review this with Bam's gates"
+      "/agent-method-router [your task]",
+      "/think [question to analyze]",
+      "/grill-me on [topic]"
     ]
   }
 }
