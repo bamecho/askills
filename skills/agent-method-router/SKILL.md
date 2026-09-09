@@ -1,6 +1,6 @@
 ---
+name: agent-method-router
 description: Route task to appropriate methodology from 8 agent-effectiveness principles
-mode: production
 ---
 
 # Agent Method Router
