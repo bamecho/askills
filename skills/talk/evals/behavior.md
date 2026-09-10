@@ -30,7 +30,7 @@ direction, and next-stage routing after the requested roadmap. The explicit spec
 was a 10/10 tie, so making spec output conditional did not reduce its decision
 surface in this run.
 
-The quiet-hours specs were each handed to a fresh `batch-grill-me` run. Both
+The quiet-hours specs were each handed to a fresh `grilling` run. Both
 produced a complete first frontier (7 questions current, 6 final); the final did
 not need an embedded Handoff or composition instruction.
 
@@ -48,7 +48,7 @@ and Next Steps narration, so that Bam wording change was rejected.
 - Leave Bam Design and its Handoff contract unchanged; they already own
   composition and retain current-slice behavior.
 - Treat output-size changes as supporting data only. The promotion rests on
-  request fidelity, preserved spec quality, the batch-grill handoff, and the Bam
+  request fidelity, preserved spec quality, the grilling handoff, and the Bam
   system regression.
 
 These are single runs per condition on one model. Future changes should retain

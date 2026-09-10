@@ -1,10 +1,10 @@
 ---
-name: codebase-design
+name: shape
 description: >
-  Design codebase shape before implementation: ground in real system, explore two distinct structures in parallel, synthesize one design doc. Use when ownership/interfaces/seams change. Skip when one owner and interaction are obvious.
+  Design codebase structure before implementation: ground in real system, explore two distinct structures in parallel, synthesize one design doc. Use when ownership/interfaces/seams change. Skip when one owner and interaction are obvious.
 ---
 
-# Codebase Design
+# Shape: Codebase Structure Design
 
 Design shape, hand over. Output: one design doc in `docs/design/`. No implementation code.
 

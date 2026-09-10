@@ -1,10 +1,10 @@
 ---
-name: think
+name: talk
 description: >
-  Turn a rough idea into an evidence-grounded decision. Use for planning direction, scope judgment, architecture choices, feasibility. Output assumptions explicitly, expect iterative discussion with user.
+  Turn a rough idea into an evidence-grounded decision through iterative dialogue. Use for planning direction, scope judgment, architecture choices, feasibility. Output assumptions explicitly, expect discussion with user.
 ---
 
-# Think: Evidence-Grounded Decision
+# Talk: Evidence-Grounded Decision Through Dialogue
 
 Turn rough idea → grounded recommendation + visible assumptions. 
 
@@ -68,7 +68,7 @@ Output recommendation with assumptions stated.
 
 **Stop and wait for discussion**. User may:
 - Answer the key assumption → refine recommendation
-- Use `batch-grill-me` or similar to probe further
+- Use `grilling` to probe further
 - Request file output after discussion converges
 
 ## Output Format
