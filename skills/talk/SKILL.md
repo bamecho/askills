@@ -87,13 +87,12 @@ Single unified format (scale complexity as needed):
 [**Unexamined**: <classes of questions> — if relevant dimensions not addressed]
 
 ---
-**Need deeper discussion?** Would you like me to continue applying this skill's method to refine the decision? 
-(I'll re-apply: [list 1-2 most relevant method steps from above])
+Want to dig deeper?
 ```
 
-**[...] means optional** - include sections only when they add value. Simple decisions may only need Decision + Key assumption + Need deeper discussion.
+**[...] means optional** - include sections only when they add value. Simple decisions may only need Decision + Key assumption.
 
-**Critical**: Always end with the "Need deeper discussion?" question to form a loop - asking this forces you to recall and re-apply the skill's method in next turn.
+**Critical**: Always end with the decision, pausing for user input. Let the user decide whether to dig deeper—don't prescribe what you'll do next.
 
 Do not write file unless explicitly requested. This is a discussion format.
 
