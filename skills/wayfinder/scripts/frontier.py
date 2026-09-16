@@ -369,11 +369,12 @@ def main() -> None:
 
     map_path = effort / "map.md"
 
-if args.resolve:
+    if args.resolve:
         require_map(map_path)
         scan(effort)  # validates the effort layout before moving anything
         print(resolve(effort, args.resolve))
-        changed = sync_map(scan(effort), map_path)
+        r = scan(effort)  # rescan after the move
+        changed = sync_map(r, map_path)
         print("map.md synced: " + ("; ".join(changed) if changed else "already current"))
         return
 
