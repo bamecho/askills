@@ -19,7 +19,8 @@
     { "text": "Write the decision record for the caching approach to a file.", "family": "requested_document" },
     { "text": "帮我判断这个方向该怎么定，先别写代码。", "family": "direction_planning" },
     { "text": "这个需求里有哪些是你自己假设的？", "family": "assumption_surfacing" },
-    { "text": "把决策记录输出到文件。", "family": "requested_document" }
+    { "text": "把决策记录输出到文件。", "family": "requested_document" },
+    { "text": "讨论完了，把结论写成 ADR。", "family": "requested_document" }
   ],
   "should_not_trigger": [
     { "text": "Fix the typo in the README.", "family": "routine_edit" },

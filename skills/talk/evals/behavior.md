@@ -194,3 +194,49 @@ Locked — `codebase-design`, `entity-model-design`, `ticket-tree` — were repo
 at upstream confirmed/locked decisions with an explicit rule that an assumed or
 open item is not locked. Earlier entries are kept as written; they were true when
 recorded.
+
+## 2026-09: per-turn ledger and phase-bound methods
+
+Motivation: in multi-turn `talk` sessions, the "re-apply the method every turn"
+instruction was followed inconsistently after the first response. Rules that
+appear once in the skill body fade as history grows.
+
+### Changes
+
+- Every response now renders the same header (`Talk · Round N · Phase ·
+  methods`) and the assumption ledger. The rule re-enters the conversation
+  history each round instead of living only in the skill body.
+- The four requirement gaps (known/unknown × known/unknown) are named with one
+  move each. Unknown knowns are surfaced as concrete observable behavior the
+  user can accept or reject at a glance; unknown unknowns get a short list of
+  angles to probe.
+- `method` skill methods are bound to fixed phases (Frame, Surface, Recommend,
+  Update, Converge) with the how-to inline, so the skill doesn't depend on the
+  model choosing or loading methods itself.
+- Added a `Changed this round` ledger line and an ablation step on each user
+  answer, so earlier conclusions are re-checked when their inputs move.
+- Questions are batched by dependency frontier (as in `grilling`), each with a
+  default, instead of one per round. High-stakes questions are numbered;
+  low-stakes reversible items are listed as defaults the user can veto. Skipped
+  high-stakes questions stay Assumed and resurface at Converge, so batching does
+  not let silent defaults pass as confirmed.
+- File output switched from `docs/decisions/NN-*.md` to ADRs in the
+  `domain-modeling` format (`docs/adr/NNNN-*.md`, same three-test gate). Only
+  Confirmed content is written as the decision; load-bearing Assumed/Open
+  items go to Consequences and set `status: proposed`.
+- `docs/adr/` is shared with `domain-modeling`: Frame reads existing ADRs as
+  prior decisions (`accepted` → Confirmed, `proposed` → its assumptions return
+  as Assumed); writing continues shared numbering and supersedes or accepts
+  existing ADRs instead of duplicating them.
+- The ADR format is a copy at `references/ADR-FORMAT.md`, not a
+  `../domain-modeling/` link, so `talk` still works when installed alone.
+  Maintenance: when `domain-modeling/ADR-FORMAT.md` changes, copy it over
+  (`diff` the two files to check).
+- Prescriptive checklists were reduced to reasons plus a few examples; the model
+  is guided, not scripted.
+
+### Not covered
+
+Static change only. No paired model runs yet. `SKILL.md` grew from ~700 to
+~1300 words. Next check: run a 5+ round session on the delete-user scenario and
+see whether the ledger and phase header survive to the last round.

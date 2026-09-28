@@ -17,7 +17,7 @@
       "找出隐含假设"
     ],
     "exclusions": ["routine bug fixes", "reviewing an already-built feature", "mechanical refactors", "translation", "summary"],
-    "artifacts": ["decision record"]
+    "artifacts": ["ADR (domain-modeling format)"]
   },
   "fallback_positive_concepts": ["decide_direction", "judge_value", "surface_assumptions", "minimize_decision"],
   "positive_concepts": {
@@ -54,7 +54,7 @@
       "weight": 0.14,
       "phrases": [
         "decision record", "write it to a file", "to a file", "export", "output path",
-        "决策记录", "输出到文件", "写到文件"
+        "决策记录", "输出到文件", "写到文件", "adr", "写 adr"
       ]
     }
   },
