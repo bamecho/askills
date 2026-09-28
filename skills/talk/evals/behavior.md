@@ -228,6 +228,15 @@ appear once in the skill body fade as history grows.
   prior decisions (`accepted` → Confirmed, `proposed` → its assumptions return
   as Assumed); writing continues shared numbering and supersedes or accepts
   existing ADRs instead of duplicating them.
+- Phases (Frame / Update / ...) replaced by one five-step loop run every
+  round: Absorb (Ablation), Re-frame (First Principles, Cohesion), Ground
+  (Critical Thinking), Surface (List Uncertainties, Independent Thinking),
+  Recommend (Occam). Each response opens with a `This round` trace, one result
+  line per step; a step with nothing new still names what was checked. Method
+  names in the header were dropped: a label can be copied without doing the
+  work, a result line can't. The intent is that the conversation itself
+  accumulates worked examples of the loop, so later rounds imitate earlier ones
+  instead of relying on the skill text read once at the start.
 - The ADR format is a copy at `references/ADR-FORMAT.md`, not a
   `../domain-modeling/` link, so `talk` still works when installed alone.
   Maintenance: when `domain-modeling/ADR-FORMAT.md` changes, copy it over
