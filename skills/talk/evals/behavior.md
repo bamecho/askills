@@ -342,3 +342,42 @@ Motivation: the first simplification went too far in the other direction. Key cl
 3. Precise boundary with grill
 
 The skill now clearly states its job: find and surface all assumptions this recommendation depends on, before they become code. The user reviews the complete assumption list and decides what to confirm or challenge.
+
+## 2026-09-29: third iteration - skill instructions demonstrate the language they require
+
+Motivation: if `talk` requires models to use ASD-STE100 clear language, the skill instructions should demonstrate that language, not just describe it. "Show, don't tell" is more effective than prescriptive rules. Additionally, the two prompt patterns from user review should be integrated not as quoted prompts, but as the spirit of how instructions are written.
+
+### Problem diagnosis
+
+**Instructions don't match requirements**: the skill told models to use short sentences and common words, but the instructions themselves used complex technical phrasing. Models imitate what they see more than what they're told to do.
+
+**Prompt spirit not integrated**: two prompts proved valuable in dialogue:
+1. "Deep dive into implicit needs and contradictions, find the core problem that makes everything clear once identified"
+2. "Restate in your own words what you understand the goal and problem to be"
+
+These weren't just good advice—they capture the essence of what steps 2 and 1 should do. But the skill only mentioned the concepts, didn't embody their spirit in how those sections were written.
+
+### Changes
+
+- **Rewrote entire skill in ASD-STE100 style**: short sentences (one idea, 20-25 words max), common words, active voice, concrete examples. The instructions now demonstrate the language they require.
+
+- **Step 1 "Say what you heard"**: rewritten to embody the second prompt's spirit—not "restate understanding" as an instruction, but "say what you heard and wait for yes/no" as natural human behavior.
+
+- **Step 2 "Find the real problem"**: rewritten to embody the first prompt's spirit—"look past the mechanism, find what problem it's trying to fix, that's often the real question." Direct, actionable, captures the essence of finding the core problem.
+
+- **Language section renamed**: "Write like a human talking to another human" instead of "Write like a colleague at a whiteboard". More direct. Adds "Some models hide unclear thinking behind jargon. Don't do that."
+
+- **Headers simplified**: 
+  - "Talk: Find the Real Problem, Surface All Assumptions" (concrete action verbs)
+  - Section headers use plain verbs: "Say what you heard", "Find the real problem", "Read the evidence"
+
+- **Created clarify skill**: replaced `bro` with `clarify`. Better name (describes function), same ASD-STE100 language, keeps `disable-model-invocation: true`. Short and direct: "Your last message had jargon or unclear phrasing. Restate it."
+
+### Result
+
+`SKILL.md` is ~1100 words. Every sentence demonstrates the style it requires:
+- Step 1: "Say what you understood" → "Wait for the user to say yes or no" (9 words, concrete)
+- Step 2: "What is the user actually trying to solve?" (8 words, direct question)
+- Language rules: "Some models hide unclear thinking behind jargon. Don't do that." (11 words, clear warning)
+
+The skill no longer tells models "use simple language"—it shows them simple language throughout, making imitation natural. The two prompt patterns aren't quoted as prompts but integrated as the spirit of how instructions are written.
