@@ -381,3 +381,49 @@ These weren't just good advice—they capture the essence of what steps 2 and 1 
 - Language rules: "Some models hide unclear thinking behind jargon. Don't do that." (11 words, clear warning)
 
 The skill no longer tells models "use simple language"—it shows them simple language throughout, making imitation natural. The two prompt patterns aren't quoted as prompts but integrated as the spirit of how instructions are written.
+
+## 2026-09-29: fourth iteration - use專有名词, cut explanation bloat
+
+Motivation: over-explanation dilutes the core instruction. Saying "short sentences, common words, active voice, concrete examples" is weaker than saying "use ASD-STE100"—專有名词compress knowledge the model already has. Each iteration added content; the skill grew from 700 words (6bae3bb) to 1100 words, 50% longer. Every "optimization" added, nothing was cut.
+
+### Problem diagnosis
+
+**Expanded descriptions dilute專有名词**: listing out "short sentences 20-25 words, common words, active voice" when "ASD-STE100" conveys the same knowledge more precisely. Models recognize專有名词; unfolding them is redundant.
+
+**Explanation bloat obscures "do what"**: necessary explanations and reminders are good; repetitive and voluminous content dilutes the action. The core method (6 steps) got buried in justifications and clarifications.
+
+### Changes
+
+- **Language section**: reduced to 3 lines. "Use ASD-STE100 writing: short sentences, common words, active voice, concrete observable behavior." + test. Removed all expansion.
+
+- **Method steps**: stripped to "do what", removed "why" repetition:
+  - Step 1: 2 lines (say what you heard, wait)
+  - Step 2: 5 lines (find real problem, independence test)
+  - Step 3: 4 lines (read evidence, separate fact/inference, greenfield case)
+  - Step 4: 7 lines (recommend, structure, mention alternative when close)
+  - Step 5: 12 lines (surface all, classification with compact definitions)
+  - Step 6: 2 lines (ask, stop and wait)
+
+- **Removed repetitive reminders**: "any hidden assumption can matter" appears once in Why This Matters, once in step 5 title, once in Gates—deleted intermediate repetitions in step text
+
+- **Output format**: compact template only, removed explanatory prose
+
+- **Multi-turn**: 3 lines for every-response rules, 1 line for round 2+ additions
+
+- **Discipline**: list only, no expansion
+
+- **Gates**: list with minimal phrasing
+
+- **File output**: collapsed to essentials, removed redundant checks
+
+- **clarify skill**: reduced to 4 lines. "Use ASD-STE100: short sentences, common words, active voice, concrete examples." Removed rule expansion.
+
+### Result
+
+`SKILL.md` reduced to ~800 words, closer to 6bae3bb's 700. Achieved by:
+- Using專有名词 (ASD-STE100) instead of expanding descriptions
+- Cutting explanation bloat, keeping necessary reminders
+- Stripping steps to "do what" with minimal "why"
+- Removing repetition across sections
+
+The skill is now denser and clearer. Core method is visible, not buried.
