@@ -1,85 +1,120 @@
 ---
 name: design-verifiable-slices
-description: "Turn implementation work into bounded, independently verifiable slices with success criteria that reject plausible wrong outputs. Use when planning agent work, strengthening weak acceptance criteria, choosing among unit, property, contract, integration, Gherkin, end-to-end, QA, build, coverage, mutation, or quality gates, or when a task risks context decay."
+description: "Turn work into bounded slices with concrete verification. Each slice has clear success criteria that reject plausible wrong outputs. Use when planning agent work or choosing verification methods."
 ---
 
 # Design Verifiable Slices
 
-Treat verification as the boundary around generated work, not as ceremony after
-implementation. Shape the current slice so a capable agent can complete it from
-authoritative context and its result can be distinguished from credible wrong
-results by direct evidence.
+Turn work into slices an agent can complete and prove correct.
 
-## Preserve authority
+## When to use
 
-Consume approved behavior, non-goals, ownership, and interfaces as fixed inputs.
-Return missing product or design decisions to their owner. Decide task boundaries
-and proof here without inventing behavior or prescribing implementation choices
-that the sources leave open.
+Use when:
+- Planning work for an agent
+- Success criteria are weak or missing
+- Need to choose verification method
+- Task risks losing context across rounds
 
-## Bound the work by cognition and proof
+## Core principle
 
-Prefer one coherent behavioral change that an agent can understand from named
-sources in a fresh working context and verify before beginning unrelated work.
-Use judgment rather than file, line, step, or token quotas.
+**Verification is the boundary, not ceremony after**. Shape work so the result can be distinguished from credible wrong results by direct evidence.
 
-Split when the work combines independent outcomes, still contains an unresolved
-authority decision, crosses competing writable ownership, requires broad
-rediscovery, or cannot be verified until later work exists. Keep coupled changes
-together when separation would create a meaningless or unverifiable intermediate
-state. The useful boundary is the smallest independently provable outcome, not
-the smallest edit.
+## Method
 
-## Make success discriminating
+### 1. Bound the work
 
-Reason from the credible ways the result could be wrong while still looking
-finished. A strong check observes the approved outcome directly and would fail
-for the material wrong results. A passing command, high coverage number, or
-agent report is weak when it does not make that distinction.
+One coherent change an agent can understand and verify before moving to unrelated work.
 
-Choose the form that best exposes the proof in the current repository. Do not
-force a taxonomy, table, or fixed set of fields. The plan only needs enough
-information for an executor or reviewer to understand what observation decides
-success and why a superficially plausible implementation would not pass.
+**Split when**:
+- Work combines independent outcomes
+- Contains unresolved design decision
+- Crosses competing module ownership
+- Cannot be verified until later work exists
 
-## Choose checks from the failure, not from a checklist
+**Keep together when**:
+- Separation creates meaningless intermediate state
+- Changes are coupled (one doesn't work without the other)
 
-Use the narrowest evidence that can detect the relevant failure, then add a
-broader check only when it contributes a different signal.
+Smallest independently provable outcome, not smallest edit.
 
-- Static, compile, type, schema, and lint checks suit structural properties they
-  actually analyze.
-- Unit and property tests suit deterministic rules, boundaries, and input
-  classes; contract and integration tests suit protocols, persistence, adapters,
-  and cross-module behavior.
-- Executable Gherkin can carry authoritative business examples. End-to-end
-  automation or precise QA can observe user-visible behavior and runtime wiring.
-- Quality metrics need a meaningful baseline, workload, threshold, and
-  measurement method. Coverage locates unexercised code but does not prove the
-  assertions; mutation testing is useful only when its extra signal justifies
-  its cost.
+### 2. Choose verification that rejects wrong results
 
-These are options, not required layers. Prefer repository-native checks and
-exact commands already supported by the project. Leave an unknown invocation
-open instead of inventing a plausible CLI.
+Think: how could this be wrong while looking finished?
 
-## Challenge the proof
+**Strong verification**: observes the actual outcome, would fail for material wrong results.
 
-Before accepting the slice, ask whether unchanged, stubbed, hard-coded,
-partially wired, or mock-satisfied work could pass. Strengthen the observation
-when it could. Demonstrate that a focused new check detects the absent or known
-wrong behavior when practical. Add negative, boundary, regression, performance,
-security, accessibility, or manual checks only when the actual failure model
-gives them information value.
+**Weak verification**: passing tests, high coverage, or agent report that doesn't distinguish right from plausible wrong.
 
-Reject flaky or proxy evidence when it cannot support an execution decision.
-Ordinary test failure sends implementation back to correction; only evidence
-that invalidates the plan's assumptions, authority, or task boundary sends work
-back to planning.
+**Pick from narrowest to broadest**:
+- **Type/lint/schema**: structural properties they actually check
+- **Unit/property tests**: deterministic rules, boundaries, input classes
+- **Integration tests**: cross-module behavior, persistence, adapters
+- **End-to-end**: user-visible behavior, real runtime wiring
+- **Manual check**: when automation can't observe the right thing
 
-## Completion bar
+Use repository-native checks. Don't invent plausible commands.
 
-Finish when the slice is taskable without reconstructing broad design history,
-the selected evidence directly constrains its approved outcome, and the proof is
-strong against the material failures without adding low-signal ceremony. Present
-that reasoning in the clearest task-specific form rather than filling a template.
+### 3. Make it concrete
+
+Say what observation proves success and why plausible wrong implementations wouldn't pass.
+
+**Examples**:
+- "Run `npm test auth.test.ts` - checks JWT validation rejects expired tokens"
+- "Start app, navigate to /settings, screenshot shows new timezone picker"
+- "POST /api/users returns 201, GET /api/users includes new user, no duplicate email allowed"
+
+**Not this**:
+- "Write tests" (what tests? what do they check?)
+- "Verify it works" (how? what's the evidence?)
+- "High test coverage" (coverage doesn't prove assertions)
+
+### 4. Check the proof
+
+Before accepting the slice, ask:
+
+Could unchanged/stubbed/hardcoded/partially wired work pass this verification?
+
+If yes, strengthen it. Show a focused check that detects the absent or wrong behavior.
+
+**Challenge questions**:
+- Does the check exercise the real user path or a test-only shortcut?
+- Does it verify side effects (files written, DB rows, messages sent)?
+- Does it capture both action and resulting state?
+- Could mocked dependencies hide broken integration?
+
+Add negative/boundary/regression checks only when the actual failure model gives them value.
+
+## Verification methods
+
+| Method | Good for | Watch out |
+|--------|----------|-----------|
+| Type check | Structure, contracts | Doesn't prove runtime behavior |
+| Unit test | Logic, boundaries, edge cases | May not catch integration issues |
+| Integration test | Cross-module behavior, persistence | Slower, needs real dependencies |
+| End-to-end | User flows, real wiring | Slowest, can be flaky |
+| Manual check | Visual output, UX, accessibility | Not repeatable |
+| Performance test | Speed, resource usage | Needs baseline and threshold |
+
+Not a checklist. Pick what rejects wrong results for this change.
+
+## Output
+
+For each slice, state:
+- **What**: one sentence describing the change
+- **Verification**: concrete observation that proves it works (command, action, expected result)
+- **Why this check**: what plausible wrong result it rejects
+
+No prescribed format. Make it clear what decides success.
+
+## If verification is weak
+
+**Symptoms**:
+- "Verify the feature works" (how?)
+- "Run all tests" (which ones matter? what do they check?)
+- "Agent confirms it's correct" (agent can't tell wrong from right)
+- Stubbed work could pass
+
+**Fix**:
+- Name specific test/check/observation
+- Say what it proves
+- Show it fails for wrong implementation
