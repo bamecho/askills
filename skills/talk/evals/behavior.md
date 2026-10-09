@@ -427,3 +427,35 @@ Motivation: over-explanation dilutes the core instruction. Saying "short sentenc
 - Removing repetition across sections
 
 The skill is now denser and clearer. Core method is visible, not buried.
+
+## 2026-09-29: fifth iteration - remove output format template, guide content not structure
+
+Motivation: the output format template (`**What I understood**: <...>` / `**Decision**: <...>`) causes models to mechanically apply markdown formatting in dialogue, losing conversational flow. Format templates make sense for file output (ADR), not for conversation.
+
+### Problem diagnosis
+
+**Format template rigidifies dialogue**: giving a markdown template in "Output format" makes models fill it like a form, even though the skill says to "talk like a human". Models imitate structure they see more than instructions to be flexible.
+
+**Contradiction**: skill requires "natural, like talking to colleague" but provides `**Decision**: <...>` format tags. The template signals "follow this structure exactly" which overrides "be natural".
+
+**Dialogue vs document confused**: conversation should be flexible and natural; file output (ADR) should be structured. Current skill mixed both—one output format for two different contexts.
+
+### Changes
+
+- **Removed "Output format" section with markdown template**: deleted the entire code block showing `**What I understood**: <...>` structure
+
+- **Added "What to include in your response"**: lists the four content elements (understanding, recommendation, assumptions, questions) without prescribing format. Says "how to say it: naturally, like talking to a colleague. Not filling a template."
+
+- **Step 4 changed from structure to guidance**: removed "Say: **Decision**: ..." format tags, replaced with "Include: what and why (one line), evidence that led here, what's in scope..."—describes content, not markdown structure
+
+- **Kept format for file output only**: "Structure for ADR file" section retains specific formatting requirements because ADR is a document, not conversation
+
+### Result
+
+Models now receive:
+- **For dialogue**: content guidance (include understanding, recommendation, assumptions, questions) + "say it naturally"
+- **For file output**: specific ADR format structure
+
+No markdown template in dialogue sections. The skill guides what to cover, not how to format it. Format rigidity moved to where it belongs: file output only.
+
+Word count stays ~800. The change trades format prescription for content guidance.

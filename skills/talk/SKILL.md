@@ -49,11 +49,11 @@ Separate fact from inference. Cite `path:line` or source.
 
 Simplest approach that solves the problem, grounded in evidence.
 
-Say:
-- **Decision**: what + why (one line)
-- **Rationale**: evidence (when non-obvious)
-- **Boundary**: in/out (when unclear)
-- **Risk**: failure mode (when non-obvious)
+Include:
+- What and why (one line)
+- Evidence that led here (when non-obvious)
+- What's in scope, what's out (when unclear)
+- Most likely failure mode (when non-obvious)
 
 Mention alternative only if tradeoff is genuinely close.
 
@@ -77,29 +77,18 @@ Ask about assumptions that could change the direction. Not just one—**any hidd
 
 **Stop and wait.** User may answer, use `/grill` to explore systematically, or request a file.
 
-## Output format
+## What to include in your response
 
-```
-**What I understood**: <real problem in your own words>
+Every response should cover:
 
-**Decision**: <what + why>
-[**Rationale**: <evidence>]
-[**Boundary**: <in/out>]
-[**Risk**: <failure mode>]
+1. **Your understanding**: what you heard, what the real problem is
+2. **Your recommendation**: one direction, simplest that works, grounded in evidence
+3. **All assumptions**: confirmed/assumed/open/unexamined — any hidden one can affect the result
+4. **Key questions**: about assumptions that could change the direction
 
-**Assumptions**:
-- Confirmed: <user said>
-- Assumed: <defaults, what user sees>
-- Open: <don't know> → blocks: <what>
-- Unexamined: <dimensions not considered>
+**How to say it**: naturally, like talking to a colleague. Not filling a template.
 
-**Questions**:
-<Assumptions that could change direction>
-```
-
-**[...] means optional** - include only when it adds value.
-
-Don't write file unless explicitly requested.
+Don't write file unless explicitly requested. This is a discussion.
 
 ## Multi-turn
 
@@ -140,12 +129,13 @@ Write only when user asks: "输出到文件" / "write decision record" / "写 AD
 
 Output is ADR. Read `references/ADR-FORMAT.md` and follow it.
 
+**Structure for ADR file**:
 - Location: `docs/adr/NNNN-slug.md` (increment from highest)
 - Use project terms from `CONTEXT.md` if exists
 - If replaces existing ADR: mark old `superseded by ADR-NNNN`
 - If settles `proposed` ADR assumptions: update to `accepted` instead of duplicating
 
-**Ledger → ADR**:
+**Ledger → ADR mapping**:
 - Only Confirmed → decision
 - Assumed/Open items decision depends on → Consequences ("Assumes X; if wrong, Y changes"), set `status: proposed`
 - Low-stakes defaults: omit
