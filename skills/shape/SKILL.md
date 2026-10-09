@@ -35,7 +35,9 @@ Skip when:
 
 Spawn subagent to trace current system. Pass task:
 
-"Trace current system for [change description]. Output to `/tmp/shape-[slug]/grounding.md`:
+"Trace current system for [change description].
+
+Return:
 - Current module ownership (cite `path:line`)
 - Data flow: enters → processes → leaves
 - Public contracts with live callers
@@ -45,7 +47,7 @@ Spawn subagent to trace current system. Pass task:
 
 Facts only. Cite everything or mark unknown."
 
-Read output. Check: every claim cited or marked unknown.
+Read subagent output directly. Check: every claim cited or marked unknown.
 
 **Skip for greenfield**: inline 3-line summary instead.
 
@@ -67,7 +69,7 @@ Apply:
 - Explicit ownership
 - Occam's Razor
 
-Show:
+Return:
 1. Caller usage (2-3 real call sites)
 2. Module map (ASCII, annotated with state/effects)
 3. Key signatures (no bodies)
@@ -76,11 +78,11 @@ Show:
 
 Follow your constraint honestly. Diverge from other design."
 
-Wait for both.
+Read both outputs directly.
 
 ### 3. Synthesize
 
-Read both designs.
+Read both designs from step 2.
 
 Compare on interface depth. Pick base (can extend without breaking). Graft what other got right.
 
