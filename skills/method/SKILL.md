@@ -1,30 +1,28 @@
 ---
 name: method
-description: Apply one or more methodologies. Methods can be combined.
+description: "Apply recognized methodologies to your work. Use multiple methods when needed."
 ---
 
 # Method
 
-Apply specific methodologies to your work. Use multiple methods when needed.
+Apply specific methodologies to your work. Methods can be combined.
 
 ## Available Methods
 
-1. **First Principles** — Question core assumptions, verify root cause, check if problem actually exists
+1. **First Principles** — Question assumptions, verify root cause, check if the problem actually exists
 
-2. **Adversarial Review** — Independent agent finds counter-examples and edge cases to stress-test decisions
+2. **Occam's Razor** — Start with simplest working solution, add complexity only when proven necessary
 
-3. **Ablation Experiment** — Remove component or complexity, run tests to validate actual necessity
+3. **Ablation** — Remove component or complexity, check what breaks to validate actual necessity
 
-4. **Occam's Razor** — Start with simplest working solution, add complexity only when proven necessary
+4. **Critical Thinking** — Distinguish verified facts from inference, cite sources, question unsupported claims
 
-5. **List Uncertainties** — Surface explicit gaps, untested scenarios, speculation, and all hidden assumptions
-
-6. **Independent Thinking** — Each agent forms separate judgment independently before sharing or discussing together
-
-7. **Critical Thinking** — Distinguish verified facts from inference, cite sources, question unsupported conclusions
-
-8. **High Cohesion, Low Coupling** — Group related decisions together, separate independent concerns with clear module boundaries
+5. **High Cohesion, Low Coupling** — Group related decisions, separate independent concerns with clear boundaries
 
 ## Usage
 
-Apply the selected method(s) directly to your task. Multiple methods can be combined in one workflow.
+Apply the selected method(s) directly to your task. Multiple methods can be combined.
+
+## Notes
+
+**Adversarial Review** (creating independent agent to find counter-examples): valuable but costly. Use sparingly for high-stakes, hard-to-reverse decisions only.
