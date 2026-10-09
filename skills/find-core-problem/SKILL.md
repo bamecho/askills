@@ -8,4 +8,4 @@ Based on what I expressed above, deeply analyze the implicit but unspoken deep n
 
 Only output a clear definition and analysis of this "real problem".
 
-Use ASD-STE100.
+Use ASD-STE100: short sentences, common words, active voice, concrete examples.
