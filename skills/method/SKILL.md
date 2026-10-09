@@ -19,10 +19,8 @@ Apply specific methodologies to your work. Methods can be combined.
 
 5. **High Cohesion, Low Coupling** — Group related decisions, separate independent concerns with clear boundaries
 
+6. **Adversarial Review** — Create independent agent to find counter-examples and edge cases, return findings
+
 ## Usage
 
 Apply the selected method(s) directly to your task. Multiple methods can be combined.
-
-## Notes
-
-**Adversarial Review** (creating independent agent to find counter-examples): valuable but costly. Use sparingly for high-stakes, hard-to-reverse decisions only.
