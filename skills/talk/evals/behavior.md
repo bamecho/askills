@@ -297,3 +297,48 @@ Word count is secondary; the real change is returning talk to its original purpo
 ### Not covered
 
 Static change only. No model runs yet. The question of whether the multi-turn loop stays alive without the explicit five-step trace remains open—the trace was added to solve loop degradation, and removing it brings back the original risk. Next check should be a 5+ round session to see whether the conversational pattern (each response modeling the loop) keeps the discipline alive, or whether loop drift returns.
+
+## 2026-09-29: second iteration - surface ALL assumptions, explicit language rules
+
+Motivation: the first simplification went too far in the other direction. Key clarifications from user review:
+
+1. **"Ask 1 key question" is wrong**: any hidden assumption can affect the overall result. The instruction "ask about the single most load-bearing assumption" from 6bae3bb contradicts the core purpose—preventing assumptions from becoming code. `talk` should surface **all assumptions this recommendation depends on**, not just one.
+
+2. **Language rules were understated**: "write like a colleague at a whiteboard" was mentioned but not enforced. This is a core requirement because some models output jargon that hides unclear thinking. The user needs to understand fast enough to say yes/no in one glance.
+
+3. **Boundary with grill needs precision**: 
+   - `talk` = find **all assumptions this specific recommendation depends on** ("what needs to be true for this to work?")
+   - `grill` = systematically explore **the entire decision space** ("what angles haven't I considered?")
+   - The difference: talk's assumptions come from the recommendation's dependencies; grill's dimensions come from exhaustive exploration
+
+4. **wayfinder reference is obsolete**: 6bae3bb said "suggest `wayfinder`" for multiple independent decisions, but wayfinder is deprecated. Changed to: tell the user these are separate decisions that should be made independently.
+
+5. **description format**: changed from `>` multiline to `"..."` single-line format for consistency.
+
+### Changes
+
+- **Emphasized**: "Any hidden assumption can affect the overall result" in Why This Matters, Gates, and step 5 title changed to "Surface ALL Assumptions"
+
+- **Added dedicated Language section**: "Write like a colleague at a whiteboard" elevated to a top-level section with explicit rules inspired by ASD-STE100 (short sentences 20-25 words, common words over jargon, active voice, concrete over abstract), plus a test: "if the user would need to ask 'what does that mean?', rewrite it"
+
+- **Clarified step 6**: changed from "ask about the single most load-bearing assumption" to "ask about all the load-bearing assumptions (those most likely to change the direction). Not just one—any hidden assumption can matter."
+
+- **Added explicit boundary section**: "Boundary with /grill" section clarifies the precise difference with examples
+
+- **Removed wayfinder reference**: step 2 independence test now says "tell the user these are separate decisions that should be made independently" instead of "suggest `wayfinder`"
+
+- **Fixed description format**: changed from `description: >` to `description: "..."`
+
+- **Restored 6bae3bb structure**: brought back the clear 6-step method (Restate → Cut to Core → Ground → Recommend → Surface ALL → Ask & Pause), output format with optional fields marked [...], Discipline and Gates sections
+
+- **Kept from first iteration**: understanding restatement in round 1, ablation on round 2+, ADR output, conversational tone
+
+### Result
+
+`SKILL.md` is ~1150 words. The structure returns to 6bae3bb's clarity (numbered steps, clear output format, discipline/gates sections) while fixing three critical issues:
+
+1. Surface ALL assumptions, not just one
+2. Language rules as a core, explicit requirement
+3. Precise boundary with grill
+
+The skill now clearly states its job: find and surface all assumptions this recommendation depends on, before they become code. The user reviews the complete assumption list and decides what to confirm or challenge.

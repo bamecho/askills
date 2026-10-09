@@ -1,7 +1,6 @@
 ---
 name: shape
-description: >
-  Design codebase structure before implementation: ground in real system, explore two distinct structures in parallel, synthesize one design doc. Use when ownership/interfaces/seams change. Skip when one owner and interaction are obvious.
+description: "Design codebase structure before implementation: ground in real system, explore two distinct structures in parallel, synthesize one design doc. Use when ownership/interfaces/seams change. Skip when one owner and interaction are obvious."
 ---
 
 # Shape: Codebase Structure Design
