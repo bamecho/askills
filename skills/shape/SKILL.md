@@ -1,151 +1,130 @@
 ---
 name: shape
-description: "Design codebase structure before implementation: ground in real system, explore two distinct structures in parallel, synthesize one design doc. Use when ownership/interfaces/seams change. Skip when one owner and interaction are obvious."
+description: "Design codebase structure before implementation. Use when ownership, interfaces, or module boundaries need definition. Skip when structure is obvious."
 ---
 
-# Shape: Codebase Structure Design
+# Shape: Design Codebase Structure
 
-Design shape, hand over. Output: one design doc in `docs/design/`. No implementation code.
+Design structure before code. Output: one design doc in `docs/design/`. No implementation.
 
-**Method**: Ground → Explore twice → Synthesize → Present
+## When to use
 
-**Skip when**: one owner/dependency/interaction already obvious → write `codebase-design skipped: <reason>`
+Use when:
+- Module ownership unclear
+- Interface boundaries need definition  
+- Multiple ways to split responsibility
+- Change crosses existing module boundaries
 
-## Phase A: Ground
+Skip when:
+- One obvious owner and interface
+- Change stays inside one module
+- Structure already agreed
 
-**Skip for**: greenfield or trivial grounding (inline in 3 lines).
+## Design principles
 
-Spawn one subagent. Pass inline prompt:
+1. **High Cohesion, Low Coupling** — group what changes together, separate what changes independently
+2. **Interface Depth** — narrow surface that hides rich capability beats wide shallow surface
+3. **Occam's Razor** — simplest structure that solves, add complexity only when proven necessary
+4. **Explicit Ownership** — every piece of state and behavior has one clear owner
+5. **Data First** — design data structures, then operations that use them
+6. **Traceability** — design doc cites real code (`path:line`), future code tracks back to design
 
-```
-**First principles thinking**: decompose <change description> to core mechanism.
-**Surface uncertainties** explicitly.
+## Method
 
-Trace the real current system. Output `/tmp/codebase-design-<slug>/grounding.md` (≤2 pages, facts only):
+### 1. Ground in real system
 
-## The change
-<Copy from upstream>
+Spawn subagent to trace current system. Pass task:
 
-## Locked decisions  
-<User-confirmed fields/flags/choices - candidates cannot reopen>
+"Trace current system for [change description]. Output to `/tmp/shape-[slug]/grounding.md`:
+- Current module ownership (cite `path:line`)
+- Data flow: enters → processes → leaves
+- Public contracts with live callers
+- Dependencies crossed
+- Repository conventions (cite example file)
+- Unknowns: what's missing, what it blocks
 
-## Current shape
-Which module owns what decision/state/effect. Cite `path:line`.
-Trace: data enters → decides/stores/effects → leaves
+Facts only. Cite everything or mark unknown."
 
-## Surviving contracts
-Public exports with live callers: `path:symbol - compatibility requirement`
-Find real callers, don't infer.
+Read output. Check: every claim cited or marked unknown.
 
-## Dependencies crossed
-Classify: in-process / local-substitutable / remote-owned / external + rationale
+**Skip for greenfield**: inline 3-line summary instead.
 
-## Repository idioms
-Syntax, error handling, layout, naming. Cite one representative file.
+### 2. Explore structures
 
-## Unknown
-Gaps + what each would change
+Spawn 2 subagents with different constraints to explore design space.
 
----
-Every claim cites `path:line` or commit/PR, else → Unknown.
-Do not propose structure. Facts only.
-```
+Pick constraint pair based on grounding:
+- Default: minimize interface vs optimize for main caller
+- When ownership contested: keep boundary vs merge ownership
+- When external dependency heavy: port locally vs adapt at edge
 
-Read output file. Move uncited claims to Unknown.
+Pass each: "Design structure for [change] with constraint: [specific constraint]. Use grounding from step 1.
 
-## Phase B: Design Twice
+Apply:
+- High cohesion, low coupling
+- Interface depth (capability hidden ÷ surface size)
+- Data structures first
+- Explicit ownership
+- Occam's Razor
 
-Spawn 2 parallel subagents with different constraints.
+Show:
+1. Caller usage (2-3 real call sites)
+2. Module map (ASCII, annotated with state/effects)
+3. Key signatures (no bodies)
+4. Seam placement (if adding adapters/boundaries)
+5. Rationale (why this structure, what rejected)
 
-**Pick constraint pair**:
-- Default: (1) minimize interface vs (2) optimize for dominant caller
-- When grounding shows contested ownership: (1) keep boundary vs (2) merge ownership
-- When external dependency dominates: (1) port locally vs (2) adapt at edge
-- When seam unclear: (1) separate early vs (2) separate late
-
-Pass each candidate:
-
-```
-**Independent thinking**: ignore other candidate.
-**Occam's razor**: simplest structure that solves.
-
-Your constraint: <specific constraint>
-Grounding: <paste grounding content>
-
-Design discipline to apply:
-- **High cohesion, low coupling**: group by owned knowledge
-- Interface depth: capability hidden ÷ surface size
-- Data structures first, then operations
-- Explicit domain intent (no transport on surface)
-- Idempotence: what if runs twice/crashes
-- Short call chains (flatten if >3 files)
-
-Return structured text:
-
-1. Caller usage (write first): 2-3 real call sites showing constraint applied
-2. Module map: ASCII, compact, annotated with state/effects/recovery
-3. Load-bearing declarations: signatures only (no bodies)
-4. Seam placement: category + adapters (2+ or none) + test strategy, or "no new seam"
-5. Rationale: load-bearing decisions, complexity hidden, alternatives rejected
-
-Follow your constraint honestly. Diverge from other candidate (that's the signal).
-
-Terms (use exactly): module, interface, depth, seam, adapter.
-```
+Follow your constraint honestly. Diverge from other design."
 
 Wait for both.
 
-## Phase C: Synthesize
+### 3. Synthesize
 
-Read both candidates.
+Read both designs.
 
-**Critical comparison** + **ablation thinking**: what breaks if we remove this component?
+Compare on interface depth. Pick base (can extend without breaking). Graft what other got right.
 
-Screen for flags:
-- **Shallow** (reject): surface exposes coordination → concentrate
-- **Leakage** (reject): shared representation → translate at boundaries
-- **Temporal decomposition** (reject): stages share knowledge → group by owned knowledge
-- **Pass-through** (revise): forwards without policy → ablation test, inline if no divergence
-- **Policy displacement** (revise): adapter infers effect → pass explicit intent
-- **Hypothetical seam** (revise): one adapter → inline until varies (Occam's razor)
-- **Contract drift** (revise): map ≠ declarations → reconcile
+Check for problems:
+- Shallow interface (surface exposes coordination) → concentrate
+- Leakage (shared representation across boundary) → translate at edges
+- Pass-through (forwards without policy) → inline if no real divergence
+- Hypothetical seam (one adapter, might need more) → inline until actually varies
 
-If reject flag found: revise candidate or re-run Phase B with adjusted constraint.
+If problems found: revise or re-run step 2 with adjusted constraint.
 
-Compare on depth. Pick base (future can extend without breaking). Graft what other got right. Screen again. Reconcile all interactions.
+### 4. Write design doc
 
-If converge: note it, ship consensus.
+Write to `docs/design/NN-[slug].md` (user's language). NN = next unused number.
 
-## Phase D: Present
+Include:
+- **Decision**: what structure, why (2-3 lines)
+- **Caller usage**: how it looks from call sites
+- **Module map**: visual structure (ASCII)
+- **Key contracts**: signatures that matter
+- **Why this structure**: base reasoning, what grafted from other design, what rejected
+- **Preserved contracts**: existing `path:symbol` kept for compatibility (or "none")
+- **Tradeoffs**: accept X for Y (or "none identified")
+- **Blockers**: unknowns that remain (or "none")
 
-Write to **`docs/design/NN-<slug>.md`** (user's language). `NN` = next unused number.
+Cite real code. No implementation details.
 
-Structure:
-1. **Decision** (2-3 lines): shape + why
-2. **Caller usage**: 2-3 sites (cite `path:line` or mark `new`)
-3. **Module map**: ASCII, annotated
-4. **Contracts**: signatures (mark `inferred` if not traced)
-5. **Synthesis**: base why, grafted why, rejected why
-6. **Preserved contracts**: `path:symbol - compat` (one line each, or "none")
-7. **Seams**: location + category + adapters + tests (or "none added")
-8. **Caller knowledge change**: added/removed (or "unchanged")
-9. **Tradeoffs**: "accept X for Y" (or "none identified")
-10. **Implementation guidance**: load-bearing contracts, where to start, deviation signal
-11. **Blockers**: unresolved + impact + owner (or "none")
+**Then stop.** No code, no tickets.
 
-Cite preserved contracts, don't reprint. No bodies.
+## Topics: what makes good structure
 
-**Verify before completion**:
-□ Preserved contracts checked (grounding line 37-38: surviving contracts exist?)
-□ Seams documented (candidates introduced adapters?)
-□ Caller knowledge change stated (grounding line 32-34: current shape changes?)
-□ Tradeoffs surfaced (synthesis rejected alternatives?)
-□ Blockers surfaced (grounding line 46-47: unknowns remain?)
+| Topic | Principle |
+|---|---|
+| Module Boundary | One clear responsibility. Minimal public surface. |
+| Interface Depth | Hide complexity. Rich capability through narrow entry. |
+| Ownership | Every state/behavior has one owner. No shared coordination. |
+| State Flow | Stateless when possible. Mutable state justifies lifecycle cost. |
+| Seam Placement | Add boundary only when responsibility splits. Not for file size. |
+| Composition | Build from focused pieces. Each does one thing well. |
+| Traceability | Design doc → code. Code → design doc. Both cite each other. |
 
-**Then stop**. No implementation, no tickets.
+## If user disagrees
 
-**Human pushback**:
-- On facts/grounding → re-run Phase A
-- On constraint choice → re-run Phase B with different pair
-- On synthesis logic → revise Phase C with user guidance
-- On presentation only → edit doc directly
+- Facts wrong → re-run step 1 (grounding)
+- Constraint choice wrong → re-run step 2 with different pair
+- Synthesis logic wrong → revise step 3 with user guidance
+- Presentation only → edit doc directly
