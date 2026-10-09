@@ -1,5 +1,6 @@
 ---
 name: restate-goal
+description: "Restate goal and problem"
 disable-model-invocation: true
 ---
 

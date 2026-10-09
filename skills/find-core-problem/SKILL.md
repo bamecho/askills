@@ -1,5 +1,6 @@
 ---
 name: find-core-problem
+description: "Find the core problem"
 disable-model-invocation: true
 ---
 
