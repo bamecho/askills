@@ -249,3 +249,51 @@ appear once in the skill body fade as history grows.
 Static change only. No paired model runs yet. `SKILL.md` grew from ~700 to
 ~1300 words. Next check: run a 5+ round session on the delete-user scenario and
 see whether the ledger and phase header survive to the last round.
+
+## 2026-09-29: return to dialogue-first simplicity
+
+Motivation: the September changes made `talk` too heavy and blurred the boundary with `grill`. The five-step trace, phase system, and batched frontier questions (borrowed from `grilling`) turned what should be a lightweight dialogue into a form-filling exercise. Users reported that simple decisions required complex ceremony, and the skill lost its conversational feel.
+
+### Problem diagnosis
+
+**Responsibility creep**: `talk` absorbed `grilling`'s batch-question mechanism instead of delegating deep exploration to `/grill`. The result: unclear when to use which skill, and `talk` became prescriptive rather than conversational.
+
+**Formalism over dialogue**: the `Talk · Round N · Phase · methods` header and five-step trace made every round feel like executing a protocol rather than talking with a colleague at a whiteboard.
+
+**Local vs global optimization**: a key tension emerged: should `talk` give recommendations immediately (fast but potentially locally optimal) or buffer questions to find the global optimum (systematic but that's what `grilling` does)? The answer: `talk` should understand the full context *for this recommendation* (which assumptions does it depend on?), not exhaustively explore the decision space (which is `grill`'s job).
+
+### Changes
+
+- **Removed**: five-step trace (`This round: 1. Absorb · Ablation...`), phase labels, method name annotations in responses. These were scaffolding that made responses read like reports instead of conversations.
+
+- **Removed**: batched frontier questions with numbered Q1/Q2 and explicit defaults. This was `grilling`'s mechanism. If a decision needs systematic exploration of many dimensions, the user should use `/grill`.
+
+- **Simplified output format**: back to conversational structure—understanding restatement, recommendation with evidence, assumption ledger, 1-2 key questions. Scale to the decision: simple choices get simple responses.
+
+- **Clarified boundary with `grill`**: `talk` finds the load-bearing assumptions *for the recommendation it's giving*. `grill` systematically explores the full decision space. If the user wants "what angles haven't I considered?", that's `/grill`.
+
+- **Kept core value**: assumption ledger (Confirmed / Assumed / Open), evidence grounding, first principles thinking. These are what prevent rot.
+
+- **Kept multi-turn discipline**: the loop (listen → understand → evidence → recommend → assumptions → questions → wait) still runs every round, but it lives in the response structure, not in explicit phase labels. Each response models the pattern for the next one.
+
+- **Language emphasis**: added explicit guidance to write like a colleague at a whiteboard—short sentences, common words over jargon, active voice. Referenced simplified technical English principles (inspired by ASD-STE100) without mandating the standard.
+
+- **Round 1 addition**: explicitly restate understanding of the user's problem before proceeding, so the user can correct misunderstanding early ("You want X because Y. The core question is Z.").
+
+- **Kept ADR output**: file output still produces ADRs in `docs/adr/`, reads existing ADRs as prior decisions, continues shared numbering. This integration with `domain-modeling` remains valuable.
+
+### Result
+
+`SKILL.md` reduced from ~1300 words to ~1100 words, but more importantly, the structure changed from "execute this protocol" to "have this kind of conversation". The skill now gives clear guidance on *what* to do (the loop, the ledger, the language) without prescribing exactly *how* each response should be formatted.
+
+The boundary is now clear:
+- `talk` = dialogue until decision + assumptions are shared
+- `grill` = systematic exploration of decision space
+
+If a user needs both, they run `talk` first, then `/grill` to probe deeper.
+
+Word count is secondary; the real change is returning talk to its original purpose: lightweight, conversational, assumption-surfacing dialogue that lets users make decisions without ceremony.
+
+### Not covered
+
+Static change only. No model runs yet. The question of whether the multi-turn loop stays alive without the explicit five-step trace remains open—the trace was added to solve loop degradation, and removing it brings back the original risk. Next check should be a 5+ round session to see whether the conversational pattern (each response modeling the loop) keeps the discipline alive, or whether loop drift returns.
