@@ -9,11 +9,11 @@ Design verification that proves work is correct.
 
 ## When to use
 
-Use when planning agent work, when success criteria are weak or missing, when need to choose verification method, or when task risks losing context across rounds.
+Use when you plan agent work. Use when success criteria are weak or missing. Use when you need to choose verification method. Use when task risks losing context across rounds.
 
 ## Core principle
 
-Verification is the boundary, not ceremony after. Shape work so the result can be distinguished from credible wrong results by direct evidence.
+Verification is the boundary, not something you do after. Shape work so you can distinguish the result from credible wrong results by direct evidence.
 
 ## Method
 
@@ -21,35 +21,41 @@ Verification is the boundary, not ceremony after. Shape work so the result can b
 
 One coherent change an agent can understand and verify before moving to unrelated work.
 
-Split when: work combines independent outcomes, contains unresolved design decision, crosses competing ownership, cannot verify until later work exists.
+Split when:
+- Work combines independent outcomes
+- Work contains unresolved design decision
+- Work crosses competing ownership
+- You cannot verify until later work exists
 
-Keep together when: separation creates meaningless intermediate state, changes are coupled.
+Keep together when:
+- Separation creates meaningless intermediate state
+- Changes are coupled
 
-Smallest independently provable outcome, not smallest edit.
+Use smallest independently provable outcome, not smallest edit.
 
 ### 2. Choose verification that rejects wrong results
 
 Think: how could this be wrong while looking finished?
 
-Common failure modes: returns cached/hardcoded data, skips validation, writes to test location, uses mock that always succeeds, UI renders but data doesn't persist.
+Common ways it fails: returns cached/hardcoded data, skips validation, writes to location for test, uses mock that always succeeds, UI renders but data does not persist.
 
 **Strong verification**: observes actual outcome, would fail for material wrong results.
 
-**Weak verification**: passing tests that don't check outcome, high coverage number, agent report without observable evidence.
+**Weak verification**: passing tests that do not check outcome, high coverage number, agent report without observable evidence.
 
-Pick from narrowest to broadest: type/lint/schema for structure, unit/property for logic and boundaries, integration for cross-module behavior, end-to-end for user flows, manual for visual/UX/accessibility.
+Pick from narrowest to broadest: type/lint/schema for structure, unit/property for logic and boundaries, integration for behavior across modules, end-to-end for user flows, manual for visual/UX/accessibility.
 
-Use repository-native checks. Don't invent commands.
+Use repository-native checks. Do not invent commands.
 
 ### 3. Make it concrete
 
 Required format: `[Action] → [Observable result] — [What wrong implementation this rejects]`
 
-Example of strong: "Run `npm test auth.test.ts` → JWT test 'rejects expired token' passes — rejects implementation that doesn't check expiry"
+Example of strong: "Run `npm test auth.test.ts` → JWT test 'rejects expired token' passes — rejects implementation that does not check expiry"
 
-Example of weak: "Write tests" (no specific command), "Verify it works" (no observable evidence), "High test coverage" (shows what ran, not what's correct)
+Example of weak: "Write tests" (no specific command), "Verify it works" (no observable evidence), "High test coverage" (shows what ran, not what is correct)
 
-If you can't name the specific command/action and expected result, the verification is too weak. Strengthen it or mark unknown.
+If you cannot name the specific command/action and expected result, the verification is too weak. Strengthen it or mark unknown.
 
 ### 4. Check the proof
 
@@ -69,7 +75,7 @@ Add negative/boundary/regression checks only when failure model gives them value
 
 | Method | Good for | Limitation |
 |--------|----------|-----------|
-| Type/lint | Structure, contracts | Doesn't prove runtime behavior |
+| Type/lint | Structure, contracts | Does not prove runtime behavior |
 | Unit test | Logic, boundaries | Mocked dependencies hide integration issues |
 | Integration | Cross-module, persistence | Slower, needs real dependencies |
 | End-to-end | User flows, real wiring | Slowest, can be flaky |
@@ -79,7 +85,7 @@ Pick what rejects wrong results for this change.
 
 ## Output
 
-For each slice state: what (one sentence), verification (`[Action] → [Result] — [What it rejects]`), why this check (what wrong implementation wouldn't pass).
+For each slice state: what (one sentence), verification (`[Action] → [Result] — [What it rejects]`), why this check (what wrong implementation would not pass).
 
 No prescribed format. Make clear what decides success.
 

@@ -7,11 +7,11 @@ description: "Turn a rough idea into an evidence-grounded decision through dialo
 
 Turn rough idea → clear decision + visible assumptions.
 
-Apply this method every round. Re-ground in evidence, re-check assumptions, keep finding the real problem.
+Apply this method every round. Re-ground in evidence. Re-check assumptions. Keep finding the real problem.
 
 ## Why this matters
 
-Rot starts when you meet an unknown, pick a reasonable default, and that default becomes fact. It gets coded, tested, and built upon. When reality disagrees, patches pile up.
+Problems start when you meet an unknown. You pick a reasonable default. That default becomes fact. It gets coded, tested, and built upon. When reality disagrees, patches pile up.
 
 Stop this at step one, while the assumption is still one sentence. **Any hidden assumption can affect the result.**
 
@@ -43,7 +43,7 @@ Read: governing docs, `docs/adr/`, current code, behavior.
 
 Separate fact from inference. Cite `path:line` or source.
 
-**When evidence doesn't exist**: say what's missing, ground in user constraints and proven patterns, mark reasoning `[inferred from analogy]`.
+**When evidence does not exist**: say what is missing, ground in user constraints and proven patterns, mark reasoning `[inferred from analogy]`.
 
 ### 4. Recommend one direction
 
@@ -52,7 +52,7 @@ Simplest approach that solves the problem, grounded in evidence.
 Include:
 - What and why (one line)
 - Evidence that led here (when non-obvious)
-- What's in scope, what's out (when unclear)
+- What is in scope, what is out (when unclear)
 - Most likely failure mode (when non-obvious)
 
 Mention alternative only if tradeoff is genuinely close.
@@ -63,8 +63,8 @@ List every assumption this recommendation depends on.
 
 - **Confirmed**: user said this
 - **Assumed**: default you picked — write what user will see: "After delete, past orders visible to admins for 30 days"
-- **Open**: don't know yet, blocks something — say what
-- **Unexamined**: dimension user hasn't raised — name the class
+- **Open**: do not know yet, blocks something — say what
+- **Unexamined**: dimension user has not raised — name the class
 
 **Classification**:
 - Confirmed vs Assumed: user said "fast" → speed is confirmed; what "fast" means as number is assumed
@@ -88,7 +88,7 @@ Every response should cover:
 
 **How to say it**: naturally, like talking to a colleague. Not filling a template.
 
-Don't write file unless explicitly requested. This is a discussion.
+Do not write file unless explicitly requested. This is a discussion.
 
 ## Multi-turn
 
@@ -105,7 +105,7 @@ Every response:
 
 - Group related decisions, separate independent ones
 - Can we drop this complexity? What breaks?
-- Check evidence yourself, don't anchor on user's proposed mechanism
+- Check evidence yourself, do not anchor on user's proposed mechanism
 - Simplest that works
 - Official solutions before custom design
 
@@ -113,7 +113,7 @@ Every response:
 
 - Contradiction with project rules/prior decisions: resolve first
 - External dependencies/irreversible effects: explicit
-- Blocking ambiguity: stays Open (don't fake closure)
+- Blocking ambiguity: stays Open (do not fake closure)
 - No unlabeled assumption reaches recommendation
 - Any hidden assumption can affect result—surface all
 
@@ -121,7 +121,7 @@ Every response:
 
 **talk**: find all assumptions **this recommendation** depends on ("what needs to be true for this to work?")
 
-**grill**: explore **entire decision space** systematically ("what angles haven't I considered?")
+**grill**: explore **entire decision space** systematically ("what angles have not I considered?")
 
 ## File output (on request only)
 

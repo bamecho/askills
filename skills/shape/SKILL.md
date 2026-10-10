@@ -10,24 +10,24 @@ Design structure before code. Output: one design doc in `docs/design/`. No imple
 ## When to use
 
 Use when:
-- Module ownership unclear
+- Module ownership is unclear
 - Interface boundaries need definition  
-- Multiple ways to split responsibility
+- Multiple ways exist to split responsibility
 - Change crosses existing module boundaries
 
 Skip when:
-- One obvious owner and interface
+- One obvious owner and interface exist
 - Change stays inside one module
-- Structure already agreed
+- Structure is already agreed
 
 ## Design principles
 
-1. **High Cohesion, Low Coupling** — group what changes together, separate what changes independently
-2. **Interface Depth** — narrow surface that hides rich capability beats wide shallow surface
-3. **Occam's Razor** — simplest structure that solves, add complexity only when proven necessary
-4. **Explicit Ownership** — every piece of state and behavior has one clear owner
-5. **Data First** — design data structures, then operations that use them
-6. **Traceability** — design doc cites real code (`path:line`), future code tracks back to design
+1. **High Cohesion, Low Coupling** — Group what changes together. Separate what changes independently.
+2. **Interface Depth** — Narrow surface that hides complex capability. This is better than wide shallow surface.
+3. **Occam's Razor** — Use simplest structure that solves. Add complexity only when proven necessary.
+4. **Explicit Ownership** — Every piece of state and behavior has one clear owner.
+5. **Data First** — Design data structures. Then design operations that use them.
+6. **Traceability** — Design doc cites real code (`path:line`). Future code tracks back to design.
 
 ## Method
 
@@ -43,11 +43,11 @@ Return:
 - Public contracts with live callers
 - Dependencies crossed
 - Repository conventions (cite example file)
-- Unknowns: what's missing, what it blocks
+- Unknowns: what is missing, what it blocks
 
 Facts only. Cite everything or mark unknown."
 
-Read subagent output directly. Check: every claim cited or marked unknown.
+Read subagent output directly. Check: every claim is cited or marked unknown.
 
 **Skip for greenfield**: inline 3-line summary instead.
 
@@ -55,7 +55,7 @@ Read subagent output directly. Check: every claim cited or marked unknown.
 
 Spawn 2 subagents with different constraints to explore design space.
 
-Pick constraint pair based on grounding:
+Pick pair of constraints based on grounding:
 - Default: minimize interface vs optimize for main caller
 - When ownership contested: keep boundary vs merge ownership
 - When external dependency heavy: port locally vs adapt at edge
@@ -70,7 +70,7 @@ Apply:
 - Occam's Razor
 
 Return:
-1. Caller usage (2-3 real call sites)
+1. Caller usage (2-3 real sites where code calls)
 2. Module map (ASCII, annotated with state/effects)
 3. Key signatures (no bodies)
 4. Seam placement (if adding adapters/boundaries)
@@ -100,7 +100,7 @@ Write to `docs/design/NN-[slug].md` (user's language). NN = next unused number.
 
 Include:
 - **Decision**: what structure, why (2-3 lines)
-- **Caller usage**: how it looks from call sites
+- **Caller usage**: how it looks from sites where code calls
 - **Module map**: visual structure (ASCII)
 - **Key contracts**: signatures that matter
 - **Why this structure**: base reasoning, what grafted from other design, what rejected
