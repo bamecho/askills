@@ -18,7 +18,19 @@ Read durable context in this order: user-provided path, current project scope, t
 
 ## Memory distillation redaction gate
 
-When turning prior chats, durable memory, or cross-project notes into reusable Waza guidance, promote only workflow rules. Strip raw transcript text, screenshots, local paths, project-specific commands, issue or PR numbers, release tags, commit hashes, private product boundaries, paid or license details, support routing, user names, and one-machine state.
+When turning prior chats, durable memory, or cross-project notes into reusable Waza guidance, promote only workflow rules. Strip the following:
+- Raw transcript text
+- Screenshots
+- Local paths
+- Project-specific commands
+- Issue or PR numbers
+- Release tags
+- Commit hashes
+- Private product boundaries
+- Paid or license details
+- Support routing
+- User names
+- One-machine state
 
 If an example is necessary, use neutral placeholders such as `ExampleCLI`, `ExampleApp`, `<issue>`, `<release>`, or `<command>`. Do not copy a private answer, maintainer reply, screenshot observation, or project-specific incident as a durable rule.
 

@@ -4,9 +4,9 @@ Maintenance evidence for changes to `talk`. Normal invocations do not load this 
 
 ## 2026-08-27: assumption ledger, opt-in document, load-bearing decomposition
 
-Three behavior problems motivated this change. The skill could decide on its own that a decision "needs a durable multi-part contract" and write a spec the user never asked for. The review surface prescribed six named fields, which caps the document at the template's shape rather than the decision's. And step 2 stated the goal "keep the decision minimal" without a method for choosing what to cut, so a tangled ask could return a broad answer whose parts nobody could check independently.
+Three behavior problems motivated this change. The skill could decide on its own that a decision "needs a durable multi-part contract". It would write a spec the user never asked for. The review surface prescribed six named fields. This caps the document at the template shape rather than the decision shape. Step 2 stated the goal "keep the decision minimal" without a method for choosing what to cut. A tangled ask could return a broad answer. Nobody could check its parts independently.
 
-The governing failure model is assumption capture: an agent meets an unknown, picks the most plausible reading to keep moving, and that reading reaches implementation. Code, tests, and dependent modules then all conform to it, which proves internal consistency and never correctness. Every later exception patches the distance between the assumption and reality until the complexity stops coming from the problem. The countermeasure has to act while the assumption is still one sentence.
+The governing failure model is assumption capture. An agent meets an unknown. It picks the most plausible reading to keep moving. That reading reaches implementation. Code, tests, and dependent modules then all conform to it. This proves internal consistency. It never proves correctness. Every later exception patches the distance between the assumption and reality. The complexity stops coming from the problem. The countermeasure has to act while the assumption is still one sentence.
 
 ### Changes
 
@@ -27,7 +27,7 @@ Motivation: September changes added phase system, five-step trace, batched front
 
 ### Iteration 1: remove phase system
 
-**Problem**: five-step trace (`This round: 1. Absorb · Ablation...`), phase labels, batched frontier questions made talk feel like protocol execution, not conversation.
+**Problem**: five-step trace (`This round: 1. Absorb · Ablation...`), phase labels, batched frontier questions made talk feel like protocol execution. It did not feel like conversation.
 
 **Changes**:
 - Removed five-step trace, phase headers, method annotations
@@ -39,7 +39,7 @@ Motivation: September changes added phase system, five-step trace, batched front
 
 ### Iteration 2: surface ALL assumptions, explicit language rules
 
-**Problem**: "ask 1 key question" contradicts core purpose—any hidden assumption can affect result. Language rules understated. wayfinder reference obsolete.
+**Problem**: "ask 1 key question" contradicts core purpose—any hidden assumption can affect result. Language rules understated. Wayfinder reference obsolete.
 
 **Changes**:
 - Step 5 title: "Surface ALL Assumptions" 
