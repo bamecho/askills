@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Your last message had jargon or unclear phrasing. Restate it.
 
-Use ASD-STE100: short sentences, common words, active voice, concrete examples.
+Use ASD-STE100: approved words, one meaning per word, ≤20 words per sentence, active voice, observable actions.
 
 **First, restate in your own words**: what you understood the user wants and what problem you're solving.
 

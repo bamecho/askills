@@ -17,7 +17,7 @@ Stop this at step one, while the assumption is still one sentence. **Any hidden 
 
 ## Language
 
-Use ASD-STE100 writing: short sentences, common words, active voice, concrete observable behavior.
+Use ASD-STE100: approved words, one meaning per word, ≤20 words per sentence, active voice, observable actions.
 
 **Test**: if the user would ask "what does that mean?", rewrite it.
 
