@@ -22,75 +22,75 @@ Skip when:
 
 ## Design principles
 
-1. **High Cohesion, Low Coupling** — Group what changes together. Separate what changes independently.
-2. **Interface Depth** — Narrow surface that hides complex capability. This is better than wide shallow surface.
-3. **Occam's Razor** — Use simplest structure that solves. Add complexity only when proven necessary.
-4. **Explicit Ownership** — Every piece of state and behavior has one clear owner.
-5. **Data First** — Design data structures. Then design operations that use them.
-6. **Traceability** — Design doc cites real code (`path:line`). Future code tracks back to design.
+1. **Group what changes together** — Put related code in one place. Keep unrelated code separate.
+2. **Hide complexity** — Small public interface that hides complex capability.
+3. **Simplest that works** — Add complexity only when proven necessary.
+4. **One owner per thing** — Every piece of state has one clear owner.
+5. **Design data first** — Design data structures, then operations that use them.
+6. **Track decisions** — Design doc cites real code (`path:line`). Future code tracks back to design.
 
 ## Method
 
-### 1. Ground in real system
+### 1. Trace current system
 
-Spawn subagent to trace current system. Pass task:
+Use explorer agent to read current code. Pass this task:
 
-"Trace current system for [change description].
+"Trace current system for [change].
 
-Return:
-- Current module ownership (cite `path:line`)
-- Data flow: enters → processes → leaves
-- Public contracts with live callers
-- Dependencies crossed
-- Repository conventions (cite example file)
-- Unknowns: what is missing, what it blocks
+Find:
+- Which module owns what (cite path:line)
+- How data flows (enters → processes → leaves)
+- Who calls the public APIs
+- What dependencies exist
 
-Facts only. Cite everything or mark unknown."
+Cite everything or say unknown."
 
-Read subagent output directly. Check: every claim is cited or marked unknown.
+Read the agent output. Check every claim is cited.
 
-**Skip for greenfield**: inline 3-line summary instead.
+Skip for new code: write 3-line summary instead.
 
-### 2. Explore structures
+### 2. Explore two designs
 
-Spawn 2 subagents with different constraints to explore design space.
+Use two agents with different constraints.
 
-Pick pair of constraints based on grounding:
+Pick constraints based on step 1:
 - Default: minimize interface vs optimize for main caller
-- When ownership contested: keep boundary vs merge ownership
-- When external dependency heavy: port locally vs adapt at edge
+- When ownership unclear: keep boundary vs merge ownership
+- When many dependencies: port locally vs adapt at edge
 
-Pass each: "Design structure for [change] with constraint: [specific constraint]. Use grounding from step 1.
+Pass each agent:
+
+"Design structure for [change]. Use constraint: [specific constraint]. Use grounding from step 1.
 
 Apply:
-- High cohesion, low coupling
-- Interface depth (capability hidden ÷ surface size)
-- Data structures first
-- Explicit ownership
-- Occam's Razor
+- Group what changes together
+- Hide complexity behind small interface
+- Design data structures first
+- One owner per thing
+- Simplest that works
 
 Return:
-1. Caller usage (2-3 real sites where code calls)
-2. Module map (ASCII, annotated with state/effects)
-3. Key signatures (no bodies)
-4. Seam placement (if adding adapters/boundaries)
-5. Rationale (why this structure, what rejected)
+- Where code calls this (2-3 real sites)
+- Module map (ASCII diagram, show state/effects)
+- Key function signatures (no bodies)
+- Adapter placement (if adding boundaries)
+- Why this structure works, what you rejected
 
-Follow your constraint honestly. Diverge from other design."
+Follow your constraint. Make it different from the other design."
 
-Read both outputs directly.
+Read both outputs.
 
 ### 3. Synthesize
 
 Read both designs from step 2.
 
-Compare on interface depth. Pick base (can extend without breaking). Graft what other got right.
+Compare how well each hides complexity. Pick the base (can extend without breaking). Take what the other got right.
 
 Check for problems:
-- Shallow interface (surface exposes coordination) → concentrate
-- Leakage (shared representation across boundary) → translate at edges
-- Pass-through (forwards without policy) → inline if no real divergence
-- Hypothetical seam (one adapter, might need more) → inline until actually varies
+- Interface exposes too much coordination → make it smaller
+- Shared representation across boundary → translate at edges
+- Pass-through (forwards without policy) → merge if no real divergence
+- Hypothetical adapter (one adapter, might need more) → merge until actually varies
 
 If problems found: revise or re-run step 2 with adjusted constraint.
 
@@ -102,8 +102,8 @@ Include:
 - **Decision**: what structure, why (2-3 lines)
 - **Caller usage**: how it looks from sites where code calls
 - **Module map**: visual structure (ASCII)
-- **Key contracts**: signatures that matter
-- **Why this structure**: base reasoning, what grafted from other design, what rejected
+- **Key contracts**: function signatures that matter
+- **Why this structure**: base reasoning, what taken from other design, what rejected
 - **Preserved contracts**: existing `path:symbol` kept for compatibility (or "none")
 - **Tradeoffs**: accept X for Y (or "none identified")
 - **Blockers**: unknowns that remain (or "none")
